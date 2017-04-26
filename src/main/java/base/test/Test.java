@@ -1,5 +1,6 @@
 package base.test;
 
+import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.concurrent.ConcurrentHashMap;
@@ -21,6 +22,8 @@ public class Test {
         System.out.println(hashtable.get(""));
 
         CopyOnWriteArrayList copyOnWriteArrayList = new CopyOnWriteArrayList();
+
+        int[] ints = new int[10];
 
     }
 }
