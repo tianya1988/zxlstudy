@@ -1,0 +1,147 @@
+{
+  "namespace": "dns",
+  "type": "record",
+  "name": "payload",
+  "fields": [
+    {
+      "name": "log_id",
+      "type": "string"
+    },
+    {
+      "name": "log_type",
+      "type": "string"
+    },
+    {
+      "name": "device_ip",
+      "type": "long"
+    },
+    {
+      "name": "device_name",
+      "type": "string"
+    },
+    {
+      "name": "device_type",
+      "type": "string"
+    },
+    {
+      "name": "recv_time",
+      "type": "long"
+    },
+    {
+      "name": "report_time",
+      "type": "count"
+    },
+    {
+      "name": "src_ip",
+      "type": "long"
+    },
+    {
+      "name": "src_ipv6",
+      "type": "string"
+    },
+    {
+      "name": "src_ip_ver",
+      "type": "int"
+    },
+    {
+      "name": "src_port",
+      "type": "int"
+    },
+    {
+      "name": "dst_ip",
+      "type": "long"
+    },
+    {
+      "name": "dst_ipv6",
+      "type": "string"
+    },
+    {
+      "name": "dst_ip_ver",
+      "type": "int"
+    },
+    {
+      "name": "dst_port",
+      "type": "int"
+    },
+    {
+      "name": "dns_relationid",
+      "type": "string"
+    },
+    {
+      "name": "dns_id",
+      "type": "int"
+    },
+    {
+      "name": "dns_identification",
+      "type": "int"
+    },
+    {
+      "name": "dns_codeandflag",
+      "type": "int"
+    },
+    {
+      "name": "dns_cfqr",
+      "type": "int"
+    },
+    {
+      "name": "dns_cfopcode",
+      "type": "int"
+    },
+    {
+      "name": "dns_cfaa",
+      "type": "int"
+    },
+    {
+      "name": "dns_cftc",
+      "type": "int"
+    },
+    {
+      "name": "dns_cfrd",
+      "type": "int"
+    },
+    {
+      "name": "dns_cfra",
+      "type": "int"
+    },
+    {
+      "name": "dns_cfreserved",
+      "type": "int"
+    },
+    {
+      "name": "dns_cfrcode",
+      "type": "int"
+    },
+    {
+      "name": "dns_questioncount",
+      "type": "int"
+    },
+    {
+      "name": "dns_answercount",
+      "type": "int"
+    },
+    {
+      "name": "dns_authoritycount",
+      "type": "int"
+    },
+    {
+      "name": "dns_additionalcount",
+      "type": "int"
+    },
+    {
+      "name": "dns_question",
+      "type": "string"
+    },
+    {
+      "name": "dns_answer",
+      "type": "string"
+    },
+    {
+      "name": "dns_authority",
+      "type": "string"
+    },
+    {
+      "name": "dns_additional",
+      "type": "string"
+    }
+  ]
+}
