@@ -2,9 +2,6 @@ package utils;
 
 import java.math.BigInteger;
 
-/**
- * Created by h on 16-1-3.
- */
 public class IpUtils {
 
     public static long ip2long(String ipv4) {
