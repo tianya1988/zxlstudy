@@ -12,22 +12,21 @@ import org.apache.hadoop.fs.Path;
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.net.URI;
+import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by h on 16-5-1.
- */
 public class HdfsAvroReaderTest {
     private Configuration conf;
     private FileSystem fs;
-    private Map<String, String> properties;
+    private Map<String, String> properties = new HashMap<String, String>();
 
     public static void main(String[] args) throws IOException {
-        HdfsAvroReaderTest test  = new HdfsAvroReaderTest();
+        HdfsAvroReaderTest test = new HdfsAvroReaderTest();
         FSDataInputStream fsDataInputStream = null;
-        String hdfsPath = "/bj/pro/dns/20170711/00/105-884816225463865344.avro";
+//        String hdfsPath = "/bj/pro/dns/20170817/16/112-898092113420812288.avro";
+        String hdfsPath = "/bj/pro/dns/20170817/16/279-898092176218615808.avro";
         try {
-            fsDataInputStream = test.getFs("hdfs://f14cp-c1-flume001:8020").open(new Path(hdfsPath));
+            fsDataInputStream = test.getFs("hdfs://f14cp-p1-zk001:8020").open(new Path(hdfsPath));
             DataFileStream<GenericRecord> dataFileStream = null;
             try {
                 dataFileStream = new DataFileStream(fsDataInputStream, new GenericDatumReader<GenericRecord>());
@@ -67,7 +66,7 @@ public class HdfsAvroReaderTest {
                 fs = FileSystem.get(URI.create(url), conf);
             }
         } catch (IOException e) {
-           e.printStackTrace();
+            e.printStackTrace();
         }
     }
 }

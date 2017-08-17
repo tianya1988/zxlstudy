@@ -77,6 +77,15 @@
             <version>${spark.version}</version>
         </dependency>
 
+
+        <!--zookeeper-->
+        <dependency>
+            <groupId>com.101tec</groupId>
+            <artifactId>zkclient</artifactId>
+            <version>0.6</version>
+        </dependency>
+
+
     </dependencies>
 
 </project>
