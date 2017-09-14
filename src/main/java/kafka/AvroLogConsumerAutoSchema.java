@@ -20,7 +20,7 @@ import java.util.*;
 public class AvroLogConsumerAutoSchema {
     public static void main(String[] args) throws Exception {
 
-        String zkServer = "11.11.127.1:2181";
+        String zkServer = "11.11.60.127:2181";
 
         Properties props = new Properties();
         props.put("auto.offset.reset", "smallest"); //必须要加，如果要读旧数据
@@ -48,10 +48,10 @@ public class AvroLogConsumerAutoSchema {
             try {
 
                 byte[] data = it.next().message();
-//                System.out.println(Arrays.toString(data));
+                System.out.println("data is : " + Arrays.toString(data));
 
                 int schemaId = ByteUtil.littleEndianToInt(data, 0);
-                System.out.println(schemaId);
+                System.out.println("schemaId is : " + schemaId);
 
                 ZookeeperTemplate zookeeperTemplate = new ZookeeperTemplate();
                 zookeeperTemplate.setZkServer(zkServer);

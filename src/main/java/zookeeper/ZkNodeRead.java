@@ -93,17 +93,17 @@ public class ZkNodeRead {
 
                     if (Long.parseLong(fieldValues[3].trim()) <= earliestOffset) {
                         System.out.println("Something is error : offset from zookeeper is too smaller, "
-                                        + "The topic : " + fieldValues[0]
-                                        + ", partition is : " + fieldValues[1]
-                                        + ", zk untilOffset is : " + fieldValues[3]
-                                        + ", but offset from kafka is : " + earliestOffset + "-" + latestOffset
+                                + "The topic : " + fieldValues[0]
+                                + ", partition is : " + fieldValues[1]
+                                + ", zk untilOffset is : " + fieldValues[3]
+                                + ", but offset from kafka is : " + earliestOffset + "-" + latestOffset
                         );
                     } else if (Long.parseLong(fieldValues[3].trim()) >= latestOffset) {
                         System.out.println("Something is error : offset from zookeeper is too bigger, "
-                                        + "The topic : " + fieldValues[0]
-                                        + ", partition is : " + fieldValues[1]
-                                        + ", zk untilOffset is : " + fieldValues[3]
-                                        + ", but offset from kafka is : " + earliestOffset + "-" + latestOffset
+                                + "The topic : " + fieldValues[0]
+                                + ", partition is : " + fieldValues[1]
+                                + ", zk untilOffset is : " + fieldValues[3]
+                                + ", but offset from kafka is : " + earliestOffset + "-" + latestOffset
                         );
                     }
 
