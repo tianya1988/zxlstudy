@@ -32,22 +32,12 @@ public class ProducerAvroWithSchemaId {
         String zkServer = "11.11.60.127:2181";
 
         InputStream inputStream = ProducerAvroWithSchemaId.class.getClassLoader().getResourceAsStream("dns.json");
-        List<String> lines = IOUtils.readLines(inputStream);
-
-        StringBuffer sb = new StringBuffer();
-        for (String line : lines) {
-            sb.append(line);
-        }
-
-        String dnsStr = sb.toString();
+        String dnsStr = IOUtils.toString(inputStream);
         System.out.println(dnsStr);
-
         JSONObject dnsJsonObject = JSONObject.parseObject(dnsStr);
-
 
         Schema schema = getSchema(schemaId, zkServer);
         System.out.println(schema);
-
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         outputStream.write(schemaIdByte);
