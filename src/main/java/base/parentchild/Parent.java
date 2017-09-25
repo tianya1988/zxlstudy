@@ -9,14 +9,6 @@ public class Parent {
     public int age;
 
     public static String phone;
-/*
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
 
     public int getId() {
         return id;
@@ -25,13 +17,4 @@ public class Parent {
     public void setId(int id) {
         this.id = id;
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-    */
 }

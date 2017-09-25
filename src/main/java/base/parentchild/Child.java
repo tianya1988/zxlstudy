@@ -14,10 +14,4 @@ public class Child extends Parent {
         this.address = address;
     }
 
-    public static void main(String[] args) {
-        Child child = new Child();
-        child.age = 10;
-        child.phone = "sfa";
-        //
-    }
 }
