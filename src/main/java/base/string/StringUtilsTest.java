@@ -7,18 +7,10 @@ import org.apache.commons.lang.StringUtils;
  */
 public class StringUtilsTest {
     public static void main(String[] args) {
-        System.out.println(StringUtils.isEmpty(""));
-        System.out.println(StringUtils.isEmpty(" "));
-        System.out.println(StringUtils.isEmpty(null));
-        System.out.println(StringUtils.isBlank(" "));
-        System.out.println(StringUtils.isBlank(null));
-
-        /*
-        true
-        false
-        true
-        true
-        true
-        */
+        System.out.println(StringUtils.isEmpty(""));//true
+        System.out.println(StringUtils.isEmpty(" "));//false
+        System.out.println(StringUtils.isEmpty(null));//true
+        System.out.println(StringUtils.isBlank(" "));//true
+        System.out.println(StringUtils.isBlank(null));//true
     }
 }
