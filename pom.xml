@@ -85,6 +85,13 @@
             <version>0.6</version>
         </dependency>
 
+        <!-- netty -->
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-resolver-dns</artifactId>
+            <version>4.1.18.Final</version>
+        </dependency>
+
 
     </dependencies>
 
