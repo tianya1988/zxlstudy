@@ -25,10 +25,10 @@ public class HdfsWriteTest {
         HdfsWriteTest test = new HdfsWriteTest();
         FSDataInputStream fsDataInputStream = null;
 //        String hdfsPath = "/bj/pro/dns/20170817/16/112-898092113420812288.avro";
-        String hdfsPath = "/mr-history/zxl4";
+        String hdfsPath = "/soc/sparksql2";
         try {
 
-            FileSystem fsTemp = test.getFs("hdfs://11.11.60.127:8020");
+            FileSystem fsTemp = test.getFs("hdfs://f14cp-p1-zk001:8020");
             FSDataOutputStream fsDataOutputStream = fsTemp.create(new Path(hdfsPath));
             fsDataOutputStream.writeBytes("zhang");
             fsDataOutputStream.writeBytes("\n");

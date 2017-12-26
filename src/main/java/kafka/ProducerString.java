@@ -24,14 +24,14 @@ import java.util.Properties;
  */
 public class ProducerString {
     public static void main(String[] args) throws IOException {
-        String bootstrapServers = "11.11.60.99:6667,11.11.60.100:6667,11.11.60.101:6667";
+        String bootstrapServers = "localhost:9092";
 
         InputStream inputStream = ProducerString.class.getClassLoader().getResourceAsStream("dns.json");
         String dnsStr = IOUtils.toString(inputStream);
         System.out.println(dnsStr);
         JSONObject dnsJsonObject = JSONObject.parseObject(dnsStr);
 
-        ProducerRecord<String, String> record = new ProducerRecord<String, String>("test-zxl", null, dnsJsonObject.toJSONString());
+        ProducerRecord<String, String> record = new ProducerRecord<String, String>("test2", null, dnsJsonObject.toJSONString());
 
         Properties kafkaProps = new Properties();
         kafkaProps.put(ProducerConfig.ACKS_CONFIG, "all");
@@ -42,7 +42,7 @@ public class ProducerString {
 
         KafkaProducer<String, String> producer = new KafkaProducer<String, String>(kafkaProps);
         int i = 0;
-        while (i < 100) {
+        while (i < 10) {
             producer.send(record);
             i++;
 
