@@ -5,6 +5,6 @@ package kafka;
  */
 public class ConsumerOffsetHash {
     public static void main(String[] args) {
-        System.out.println(Math.abs("group1".hashCode()) % 50);
+        System.out.println(Math.abs("test-zxl7".hashCode()) % 51);
     }
 }

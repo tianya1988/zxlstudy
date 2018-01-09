@@ -42,7 +42,7 @@ public class ProducerString {
 
         KafkaProducer<String, String> producer = new KafkaProducer<String, String>(kafkaProps);
         int i = 0;
-        while (i < 10) {
+        while (i < 100) {
             producer.send(record);
             i++;
 

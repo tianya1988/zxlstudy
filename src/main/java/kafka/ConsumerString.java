@@ -30,10 +30,14 @@ public class ConsumerString {
         Properties props = new Properties();
         props.put("auto.offset.reset", "smallest"); //必须要加，如果要读旧数据
         props.put("zookeeper.connect", "localhost:2181");
-        props.put("group.id", "group1");
+        props.put("group.id", "group3");
         props.put("zookeeper.session.timeout.ms", "40000");
         props.put("zookeeper.sync.time.ms", "200");
         props.put("auto.commit.interval.ms", "1000");
+
+        //将offset保存到kafka的设置,如果没有此设置,则会将offset保存到zookeeper中
+        props.put("offsets.storage", "kafka");
+        props.put("dual.commit.enabled", "true");
 
         ConsumerConfig conf = new ConsumerConfig(props);
         ConsumerConnector consumer = kafka.consumer.Consumer.createJavaConsumerConnector(conf);
