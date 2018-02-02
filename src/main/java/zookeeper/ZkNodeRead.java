@@ -16,9 +16,9 @@ public class ZkNodeRead {
         String area = "bj";
 
         //C1
-        String kafkaBrokers = "11.11.60.128:6667";
-        String zkServers = "11.11.60.128:2181";
-        String zkPath = "/spark/offset/Dns2Es/" + area + "-pro-dns3-spark-agent";
+        String kafkaBrokers = "f14cp-p1-flume011:6667";
+        String zkServers = "11.11.127.1:2181";
+        String zkPath = "/spark/offset/DnsIpDomainMappingExtractApp/" + "pro-dns-spark-agent";
 
         /*//生产
         String kafkaBrokers = "11.11.60.2:6667";
