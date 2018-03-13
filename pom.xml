@@ -11,6 +11,7 @@
     <properties>
         <hadoop.version>2.7.2</hadoop.version>
         <spark.version>2.1.0</spark.version>
+        <spark.streaming.kafka.version>2.1.0</spark.streaming.kafka.version>
     </properties>
 
     <dependencies>
@@ -77,6 +78,34 @@
             <version>${spark.version}</version>
         </dependency>
 
+        <!--spark-->
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-streaming-kafka-0-10_2.11</artifactId>
+            <version>${spark.streaming.kafka.version}</version>
+        </dependency>
+        <!--<dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-streaming_2.11</artifactId>
+            <version>${spark.version}</version>
+        </dependency>-->
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-core_2.11</artifactId>
+            <version>${spark.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-sql_2.11</artifactId>
+            <version>${spark.version}</version>
+        </dependency>
+        <!--<dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-mllib_2.11</artifactId>
+            <version>${spark.version}</version>
+        </dependency>
+-->
+
 
         <!--zookeeper-->
         <dependency>
@@ -85,13 +114,12 @@
             <version>0.6</version>
         </dependency>
 
-        <!-- netty -->
-        <dependency>
+        <!-- netty 此版本与spark2.1.0 冲突-->
+       <!-- <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-resolver-dns</artifactId>
             <version>4.1.18.Final</version>
-        </dependency>
-
+        </dependency>-->
 
     </dependencies>
 

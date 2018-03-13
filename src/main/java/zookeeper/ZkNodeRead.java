@@ -18,15 +18,15 @@ public class ZkNodeRead {
         //C1
         String kafkaBrokers = "f14cp-p1-flume011:6667";
         String zkServers = "11.11.127.1:2181";
-        String zkPath = "/spark/offset/DnsIpDomainMappingExtractApp/" + "pro-dns-spark-agent";
+        String zkPath = "/spark/offset/XjHttpToHdfs/" + "xj-pro-http-to-hdfs-spark-agent";
 
         /*//生产
         String kafkaBrokers = "11.11.60.2:6667";
         String zkServers = "11.11.127.2:2181";
         String zkPath = "/spark/offset/DnsToEs/" + area + "-pro-dns-spark-agent";*/
 
-        HashMap<Integer, Object> earliestOffsetInfoFromKafka = OffsetUtil.getOffsetInfo(kafkaBrokers, "avro-" + area + "-pro-dns", -2);
-        HashMap<Integer, Object> latestOffsetInfoFromKafka = OffsetUtil.getOffsetInfo(kafkaBrokers, "avro-" + area + "-pro-dns", -1);
+        HashMap<Integer, Object> earliestOffsetInfoFromKafka = OffsetUtil.getOffsetInfo(kafkaBrokers, "avro-xj-pro-http", -2);
+        HashMap<Integer, Object> latestOffsetInfoFromKafka = OffsetUtil.getOffsetInfo(kafkaBrokers, "avro-xj-pro-http", -1);
 
 
         ZkClient zkClient = new ZkClient(zkServers, 6000, 6000, new StringZkSerializer());
@@ -75,18 +75,18 @@ public class ZkNodeRead {
              *
              */
 
-            System.out.println("===============================");
+            System.out.println("===============zookeeper data begin================");
             System.out.println(data);
-            System.out.println("================================");
+            System.out.println("===============zookeeper data end=================");
 
             if (data != null) {
                 final String[] rows = StringUtils.split(data, "\n");
                 for (String row : rows) {
                     final String[] fieldValues = StringUtils.split(row, ",");
-                    System.out.println("The zk info include, topic : " + fieldValues[0]
-                            + ", partition : " + fieldValues[1]
-                            + ", fromOffset : " + fieldValues[2]
-                            + ", untilOffset : " + fieldValues[3]);
+//                    System.out.println("The zk info include, topic : " + fieldValues[0]
+//                            + ", partition : " + fieldValues[1]
+//                            + ", fromOffset : " + fieldValues[2]
+//                            + ", untilOffset : " + fieldValues[3]);
 
                     Long earliestOffset = (Long) earliestOffsetInfoFromKafka.get(Integer.parseInt(fieldValues[1]));
                     Long latestOffset = (Long) latestOffsetInfoFromKafka.get(Integer.parseInt(fieldValues[1]));

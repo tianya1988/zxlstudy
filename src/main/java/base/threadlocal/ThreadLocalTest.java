@@ -5,6 +5,7 @@ package base.threadlocal;
  */
 public class ThreadLocalTest {
 
+    //ThreadLocal对象通常当作静态域存储
     //创建一个Integer型的线程本地变量
     public static final ThreadLocal<Integer> local = new ThreadLocal<Integer>() {
         @Override

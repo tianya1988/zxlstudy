@@ -32,7 +32,7 @@ public class ZkNodeWrite {
     public static void main(String[] args) throws IOException {
 
         String zkServers = "127.0.0.1:2181";
-        String zkPath = "/cnpc/algorithm-conf/conf";
+        String zkPath = "/cnpc/spark/profile/conf";
 
         ZkClient zkClient = new ZkClient(zkServers, 6000, 6000, new StringZkSerializer());
 
@@ -48,7 +48,7 @@ public class ZkNodeWrite {
             zkClient.addAuthInfo("digest", "admin:secret+3s".getBytes());
 
             String filePath = zkPath + "/" + file.getName();
-            if (zkClient.exists(filePath)) {
+            if (!zkClient.exists(filePath)) {
                 System.out.println(filePath);
                 // 创建并写入
                 zkClient.createPersistent(filePath, true, acls);
