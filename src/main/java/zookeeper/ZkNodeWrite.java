@@ -31,23 +31,33 @@ public class ZkNodeWrite {
 
     public static void main(String[] args) throws IOException {
 
-        String zkServers = "127.0.0.1:2181";
-        String zkPath = "/cnpc/spark/profile/conf";
-
+        String zkServers = "11.11.127.1:2181";
+//        String zkPath = "/cnpc/spark/profile/conf";
+        String zkPath = "/cnpc/spark/profile/process";
         ZkClient zkClient = new ZkClient(zkServers, 6000, 6000, new StringZkSerializer());
 
-        File dir = new File("/home/jason/project/workspace/venustech/spark-app-cnpc-config");
+//        File dir = new File("/home/jason/project/workspace/venustech/spark-app-cnpc-config");
+        File dir = new File("/home/jason/project/workspace/venustech/spark-app-cnpc/src/main/resources/process");
 
         File[] files = dir.listFiles();
 
         for (File file : files) {
-            if (file.isDirectory()) continue;
+            /*if (file.isDirectory() || !(file.getName().endsWith("properties")) || (file.getName().startsWith("sparkSubmit"))) {
+                continue;
+            }*/
+            if (file.isDirectory() || !(file.getName().endsWith("json")) || (file.getName().startsWith("sparkSubmit"))) {
+                continue;
+            }
 
             String fileContentStr = FileUtils.readFileToString(file, "UTF-8");
             List<ACL> acls = createAcls("admin:secret+3s");
             zkClient.addAuthInfo("digest", "admin:secret+3s".getBytes());
 
-            String filePath = zkPath + "/" + file.getName();
+            String fileName = file.getName();
+//            String subFileName = fileName.substring(0, fileName.lastIndexOf(".properties"));//TODO
+            String subFileName = fileName.substring(0, fileName.lastIndexOf(".json"));//TODO
+
+            String filePath = zkPath + "/" + subFileName;
             if (!zkClient.exists(filePath)) {
                 System.out.println(filePath);
                 // 创建并写入
