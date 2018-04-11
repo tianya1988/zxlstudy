@@ -18,6 +18,14 @@ public class StringUtilsTest {
 
 //        System.out.println(StringUtils.splitPreserveAllTokens("", '.').length);
 
-        System.out.println("avro-aqyaudit-xj-to-hdfs.properties".substring(0, "avro-aqyaudit-xj-to-hdfs.properties".lastIndexOf(".properties")));
+//        System.out.println("avro-aqyaudit-xj-to-hdfs.properties".substring(0, "avro-aqyaudit-xj-to-hdfs.properties".lastIndexOf(".properties")));
+
+        try {
+            Integer.parseInt("sdf");
+        } catch (Exception e){
+            Integer.parseInt("23s");
+            System.out.println("======");
+        }
+
     }
 }

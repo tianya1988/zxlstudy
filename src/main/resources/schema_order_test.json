@@ -1,0 +1,23 @@
+{
+	"namespace": "zxl",
+	"name": "person",
+	"type": "record",
+	"fields": [
+		{
+			"name": "age",
+			"type": "int"
+		},
+		{
+			"name": "name",
+			"type": "string"
+		},
+		{
+			"name": "address",
+			"type": "string"
+		},
+		{
+			"name": "pid",
+			"type": "int"
+		}
+	]
+}

@@ -24,7 +24,7 @@ public class HdfsAvroReaderTest {
         HdfsAvroReaderTest test = new HdfsAvroReaderTest();
         FSDataInputStream fsDataInputStream = null;
 //        String hdfsPath = "/bj/pro/dns/20170817/16/112-898092113420812288.avro";
-        String hdfsPath = "/bj/pro/http/20171026/08/605-923346670214041600.avro";
+        String hdfsPath = "/xn/test5.avro";
         try {
             fsDataInputStream = test.getFs("hdfs://f14cp-p1-zk001:8020").open(new Path(hdfsPath));
             DataFileStream<GenericRecord> dataFileStream = null;
