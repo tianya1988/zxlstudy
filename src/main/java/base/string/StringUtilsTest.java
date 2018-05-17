@@ -20,12 +20,17 @@ public class StringUtilsTest {
 
 //        System.out.println("avro-aqyaudit-xj-to-hdfs.properties".substring(0, "avro-aqyaudit-xj-to-hdfs.properties".lastIndexOf(".properties")));
 
-        try {
-            Integer.parseInt("sdf");
-        } catch (Exception e){
-            Integer.parseInt("23s");
-            System.out.println("======");
-        }
+//        try {
+//            Integer.parseInt("sdf");
+//        } catch (Exception e){
+//            Integer.parseInt("23s");
+//            System.out.println("======");
+//        }
+
+
+        System.out.println("字".getBytes().length);
+        char s = 'a';
+        System.out.println('b');
 
     }
 }

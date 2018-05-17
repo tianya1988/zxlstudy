@@ -3,6 +3,7 @@ package zookeeper;
 import kafka.OffsetUtil;
 import org.I0Itec.zkclient.ZkClient;
 import org.apache.commons.lang.StringUtils;
+import org.apache.spark.streaming.kafka010.KafkaUtils;
 import utils.StringZkSerializer;
 
 import java.util.HashMap;

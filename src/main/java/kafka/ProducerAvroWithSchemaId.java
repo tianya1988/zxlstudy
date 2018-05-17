@@ -50,19 +50,23 @@ public class ProducerAvroWithSchemaId {
         encoder.flush();
 
         byte[] resultBytes = outputStream.toByteArray();
-        ProducerRecord<String, byte[]> record = new ProducerRecord<String, byte[]>("test-topic", null, resultBytes);
+        ProducerRecord<String, byte[]> record = new ProducerRecord<String, byte[]>("test-dns-avro-gzip", null, resultBytes);
 
         Properties kafkaProps = new Properties();
         kafkaProps.put(ProducerConfig.ACKS_CONFIG, "all");
         //Defaults overridden based on config
         kafkaProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
         kafkaProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.ByteArraySerializer");
-        kafkaProps.put("compression.type", "snappy");
-        kafkaProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "11.0.44.114:9092");
+        kafkaProps.put("compression.type", "gzip");
+        kafkaProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
 
         KafkaProducer<String, byte[]> producer = new KafkaProducer<String, byte[]>(kafkaProps);
 
-        producer.send(record);
+        int i = 0;
+        while (i < 1000000) {
+            producer.send(record);
+            i++;
+        }
         producer.flush();
 
 

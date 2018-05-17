@@ -30,19 +30,21 @@ public class ConsumerString {
         Properties props = new Properties();
         props.put("auto.offset.reset", "smallest"); //必须要加，如果要读旧数据
         props.put("zookeeper.connect", "localhost:2181");
-        props.put("group.id", "group3");
+        props.put("group.id", "group4");
         props.put("zookeeper.session.timeout.ms", "40000");
         props.put("zookeeper.sync.time.ms", "200");
         props.put("auto.commit.interval.ms", "1000");
 
         //将offset保存到kafka的设置,如果没有此设置,则会将offset保存到zookeeper中
+        /**注意这是在旧版本的consumer的用法,在新版本的org.apache.kafka.clients.consumer.KafkaConsumer中
+         默认是把offset信息存储在__consumer_offsets这个topic中的**/
         props.put("offsets.storage", "kafka");
         props.put("dual.commit.enabled", "true");
 
         ConsumerConfig conf = new ConsumerConfig(props);
         ConsumerConnector consumer = kafka.consumer.Consumer.createJavaConsumerConnector(conf);
 
-        String topic = "test2";
+        String topic = "test-dns-2";
         Map<String, Integer> topicCountMap = new HashMap<String, Integer>();
         topicCountMap.put(topic, 1);
         Map<String, List<KafkaStream<byte[], byte[]>>> consumerMap = consumer.createMessageStreams(topicCountMap);
@@ -56,7 +58,7 @@ public class ConsumerString {
             try {
 
                 byte[] data = it.next().message();
-                System.out.println(Arrays.toString(data));
+                System.out.println(new String(data));
 
             } catch (Exception e) {
                 e.printStackTrace();
