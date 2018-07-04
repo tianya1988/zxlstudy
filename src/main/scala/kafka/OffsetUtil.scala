@@ -29,7 +29,9 @@ object OffsetUtil {
 
     val clientId = "GetOffsetShell"
 
-    val offsetMap: util.HashMap[Integer, Long] = new util.HashMap[Integer, Long]()
+    val earliestOffsetMap: util.HashMap[Integer, Long] = new util.HashMap[Integer, Long]()
+    val latestOffsetMap: util.HashMap[Integer, Long] = new util.HashMap[Integer, Long]()
+    var offsetMap: util.HashMap[Integer, Long] = new util.HashMap[Integer, Long]()
 
     partitions.foreach(partitionId => {
       val partitionMetadataOpt: Option[PartitionMetadata] = topicsMetadata.head.partitionsMetadata.find(_.partitionId == partitionId)
@@ -42,21 +44,43 @@ object OffsetUtil {
             case Some(leader) =>
               val consumer = new SimpleConsumer(leader.host, leader.port, 10000, 100000, clientId)
               val topicAndPartition = TopicAndPartition(topic, partitionId)
+
               // offsetTime <Long: timestamp/-1(latest)/-2(earliest)  timestamp of the offsets before that
               // number of offsets returned (default: 1)
-              val request: OffsetRequest = OffsetRequest.apply(Map(topicAndPartition -> PartitionOffsetRequestInfo(offsetTime, 1)))
-              val offsets = consumer.getOffsetsBefore(request).partitionErrorAndOffsets(topicAndPartition).offsets
 
-              offsetMap.put(partitionId, offsets(0))
+              if (offsetTime == -1 || offsetTime == -3) {
+                val request: OffsetRequest = OffsetRequest.apply(Map(topicAndPartition -> PartitionOffsetRequestInfo(-1, 1)))
+                val latestOffsets = consumer.getOffsetsBefore(request).partitionErrorAndOffsets(topicAndPartition).offsets
+                latestOffsetMap.put(partitionId, latestOffsets(0))
+              }
+
+              if (offsetTime == -2 || offsetTime == -3) {
+                val request2: OffsetRequest = OffsetRequest.apply(Map(topicAndPartition -> PartitionOffsetRequestInfo(-2, 1)))
+                val earliestOffsets = consumer.getOffsetsBefore(request2).partitionErrorAndOffsets(topicAndPartition).offsets
+                earliestOffsetMap.put(partitionId, earliestOffsets(0))
+              }
+
               if (offsetTime == -1) {
-                println("Get the latest offset => %s:%d:%s".format(topic, partitionId, offsets.mkString(",")))
+                println("Get the latest offset => %s:%d:%s".format(topic, partitionId, latestOffsetMap.get(partitionId)))
               }
               if (offsetTime == -2) {
-                println("Get the earliest offset => %s:%d:%s".format(topic, partitionId, offsets.mkString(",")))
+                println("Get the earliest offset => %s:%d:%s".format(topic, partitionId, earliestOffsetMap.get(partitionId)))
               }
+
+              if (offsetTime == -3) {
+                println("Get partition offset => %s:%d:%s:%s".format(topic, partitionId, earliestOffsetMap.get(partitionId), latestOffsetMap.get(partitionId)))
+              }
+
             case None => System.err.println("Error: partition %d does not have a leader. Skip getting offsets".format(partitionId))
           }
         case None => System.err.println("Error: partition %d does not exist".format(partitionId))
+      }
+
+      if (offsetTime == -1) {
+        offsetMap = latestOffsetMap;
+      }
+      if (offsetTime == -2) {
+        offsetMap = earliestOffsetMap;
       }
     })
 
@@ -64,14 +88,12 @@ object OffsetUtil {
   }
 
   def main(args: Array[String]) {
-    //    AlgorithmsConfig.getInstance("NetFlowSplit2ToEs")
-    getOffsetInfo("11.11.60.127:6667", "avro-dzm-pro-dns", -2)
-    println("=========================")
-    getOffsetInfo("11.11.60.127:6667", "avro-dzm-pro-dns", -1)
+//    getOffsetInfo("11.11.60.127:6667", "avro-cp-log-fw", -2)
+//    println("=========================")
+//    getOffsetInfo("11.11.60.127:6667", "avro-cp-log-fw", -1)
 
-    //    val str = "avro-bj-flow-aside"
-    //    val str2 = "enrich-bj-flow-aside"
-    //    println(str2.substring(str2.indexOf("-") + 1))
+    getOffsetInfo("11.11.60.127:6667", "avro-cp-log-fw", -3)
+
   }
 
 
