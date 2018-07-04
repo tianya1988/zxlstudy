@@ -92,6 +92,7 @@ object OffsetUtil {
 //    println("=========================")
 //    getOffsetInfo("11.11.60.127:6667", "avro-cp-log-fw", -1)
 
+    //-3是自己定义的业务逻辑，集成-1,-2的结果
     getOffsetInfo("11.11.60.127:6667", "avro-cp-log-fw", -3)
 
   }
