@@ -12,5 +12,17 @@ public class DequeTest {
 
         System.out.println(byteBuffers.isEmpty());
         System.out.println(byteBuffers.pollFirst());
+
+
+        ArrayDeque<Integer> integerArrayDeque = new ArrayDeque<Integer>();
+        integerArrayDeque.add(1);
+        integerArrayDeque.add(2);
+        System.out.println(integerArrayDeque.getLast());
+        System.out.println(integerArrayDeque.peekFirst());
+//        System.out.println(integerArrayDeque.peekFirst());
+//        System.out.println(integerArrayDeque.pollFirst());
+//        System.out.println(integerArrayDeque.pollFirst());
+
+
     }
 }

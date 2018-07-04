@@ -50,7 +50,7 @@ public class ProducerString {
         int i = 0;
         while (i < 1000000) {
             Future<RecordMetadata> send = producer.send(record);
-//            Thread.sleep(10);
+            Thread.sleep(10);
             i++;
 
         }
