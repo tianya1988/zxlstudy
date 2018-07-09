@@ -10,17 +10,21 @@ import java.nio.channels.FileChannel;
  */
 public class ChannelGatherTest {
     public static void main(String[] args) throws IOException {
-        ByteBuffer header = ByteBuffer.allocate(128);
-        ByteBuffer body = ByteBuffer.allocate(1024);
-        header.put("what is your name ? ".getBytes());
-        body.put("my name is lili".getBytes());
+        ByteBuffer header = ByteBuffer.allocate(2);
+        ByteBuffer body = ByteBuffer.allocate(2);
+        header.put("a".getBytes());
+        body.put("b".getBytes());
 
-        ByteBuffer[] bufferArray = {header, body};
+//        ByteBuffer[] bufferArray = {header, body};
+        ByteBuffer[] bufferArray = {header};
 
         // write data into channel
         RandomAccessFile aFile = new RandomAccessFile("/home/jason/Desktop/test", "rw");
+        System.out.println("aFile length : " + aFile.length());
         FileChannel inChannel = aFile.getChannel();
+        System.out.println("channel size : " + inChannel.size());
+        inChannel.position(100);
         inChannel.write(bufferArray);
-        System.out.println(inChannel);
+        System.out.println("channel position : " + inChannel.position());
     }
 }

@@ -33,7 +33,7 @@ public class ProducerString {
         System.out.println(dnsStr);
         JSONObject dnsJsonObject = JSONObject.parseObject(dnsStr);
 
-        ProducerRecord<String, String> record = new ProducerRecord<String, String>("test-dns-gzip", null, dnsJsonObject.toJSONString());
+        ProducerRecord<String, String> record = new ProducerRecord<String, String>("test-dns3", "zxl", dnsJsonObject.toJSONString());
 
         System.out.println("=======" + dnsJsonObject.toJSONString().getBytes().length);
 
@@ -48,7 +48,7 @@ public class ProducerString {
 
         KafkaProducer<String, String> producer = new KafkaProducer<String, String>(kafkaProps);
         int i = 0;
-        while (i < 1000000) {
+        while (i < 5) {
             Future<RecordMetadata> send = producer.send(record);
             Thread.sleep(10);
             i++;
