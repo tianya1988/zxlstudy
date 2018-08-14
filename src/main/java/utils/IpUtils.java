@@ -112,10 +112,12 @@ public class IpUtils {
     }
 
     public static void main(String[] args) {
-        long[] longs = ipMaskToLongArray("10.27.122.128/26");
-        System.out.println(longs[0]);
-        System.out.println(long2ip(longs[0]));
-        System.out.println(longs[1]);
-        System.out.println(long2ip(longs[1]));
+//        long[] longs = ipMaskToLongArray("10.27.122.128/26");
+//        System.out.println(longs[0]);
+//        System.out.println(long2ip(longs[0]));
+//        System.out.println(longs[1]);
+//        System.out.println(long2ip(longs[1]));
+        System.out.println(long2ip(169573015l));
+        System.out.println(ip2long("101.69.121.40"));
     }
 }

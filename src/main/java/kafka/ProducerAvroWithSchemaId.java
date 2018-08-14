@@ -27,16 +27,37 @@ import java.util.Properties;
  */
 public class ProducerAvroWithSchemaId {
     public static void main(String[] args) throws IOException {
-        int schemaId = 10029;
-        byte[] schemaIdByte = ByteUtil.littleEndian(schemaId);
-        String zkServer = "11.11.60.127:2181";
+        /**
+         * 交通部
+         */
+        int schemaId = 10006;
+        String zkServer = "10.30.111.1:2181";
+        String destTopic = "avro-zxl-pro-http";
+        String kafkaServer = "10.30.111.1:6667";
+        String schemaPath = "/asap/schema/avro/";
+        String dataFile = "http-malice.json";
 
-        InputStream inputStream = ProducerAvroWithSchemaId.class.getClassLoader().getResourceAsStream("dns.json");
+
+        /***
+         * 石油小开发
+         */
+        /*int schemaId = 10000;
+        String zkServer = "11.11.184.183:2181";
+        String sourceTopic = "avro-zxl-pro-http";
+        String kafkaServer = "11.11.184.183:6667";
+        String schemaPath = "/cnpc/schema/avro/";
+        String dataFile = "http-attack.json";*/
+
+
+        byte[] schemaIdByte = ByteUtil.littleEndian(schemaId);
+
+
+        InputStream inputStream = ProducerAvroWithSchemaId.class.getClassLoader().getResourceAsStream(dataFile);
         String dnsStr = IOUtils.toString(inputStream);
         System.out.println(dnsStr);
         JSONObject dnsJsonObject = JSONObject.parseObject(dnsStr);
 
-        Schema schema = getSchema(schemaId, zkServer);
+        Schema schema = getSchema(schemaId, zkServer, schemaPath);
         System.out.println(schema);
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -50,7 +71,7 @@ public class ProducerAvroWithSchemaId {
         encoder.flush();
 
         byte[] resultBytes = outputStream.toByteArray();
-        ProducerRecord<String, byte[]> record = new ProducerRecord<String, byte[]>("test-dns-avro-gzip", null, resultBytes);
+        ProducerRecord<String, byte[]> record = new ProducerRecord<String, byte[]>(destTopic, null, resultBytes);
 
         Properties kafkaProps = new Properties();
         kafkaProps.put(ProducerConfig.ACKS_CONFIG, "all");
@@ -58,12 +79,11 @@ public class ProducerAvroWithSchemaId {
         kafkaProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
         kafkaProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.ByteArraySerializer");
         kafkaProps.put("compression.type", "gzip");
-        kafkaProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
-
+        kafkaProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaServer);
         KafkaProducer<String, byte[]> producer = new KafkaProducer<String, byte[]>(kafkaProps);
 
         int i = 0;
-        while (i < 1000000) {
+        while (i < 10) {
             producer.send(record);
             i++;
         }
@@ -72,11 +92,11 @@ public class ProducerAvroWithSchemaId {
 
     }
 
-    private static Schema getSchema(int schemaId, String zkServer) {
+    private static Schema getSchema(int schemaId, String zkServer, String schemaPath) {
         ZookeeperTemplate zookeeperTemplate = new ZookeeperTemplate();
         zookeeperTemplate.setZkServer(zkServer);
 
-        String schemaStr = zookeeperTemplate.readData("/cnpc/schema/avro/" + schemaId);
+        String schemaStr = zookeeperTemplate.readData(schemaPath + schemaId);
 
         return new Schema.Parser().parse(schemaStr);
     }
