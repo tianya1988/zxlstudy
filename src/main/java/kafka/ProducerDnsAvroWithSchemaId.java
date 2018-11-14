@@ -22,7 +22,7 @@ import java.util.Properties;
 /**
  * Created by jason on 17-9-14.
  */
-public class ProducerAvroWithSchemaId {
+public class ProducerDnsAvroWithSchemaId {
     public static void main(String[] args) throws IOException {
         /**
          * 交通部
@@ -48,13 +48,13 @@ public class ProducerAvroWithSchemaId {
         /**
          * P1环境
          */
-        int schemaId = 10058;
-        String destTopic = "avro-bj-flow2";
-        String dataFile = "alert/cirrus-dns-flow.json";
+//        int schemaId = 10058;
+//        String destTopic = "avro-bj-flow2";
+//        String dataFile = "alert/cirrus-dns-flow.json";
 
-//        int schemaId = 1;
-//        String destTopic = "avro-bj-pro-dns2";
-//        String dataFile = "alert/cirrus-dns-dns.json";
+        int schemaId = 1;
+        String destTopic = "avro-bj-pro-dns2";
+        String dataFile = "alert/cirrus-dns-dns.json";
 
         String zkServer = "11.11.127.1:2181";
         String kafkaServer = "11.11.127.40:6667";
@@ -65,7 +65,7 @@ public class ProducerAvroWithSchemaId {
         byte[] schemaIdByte = ByteUtil.littleEndian(schemaId);
 
 
-        InputStream inputStream = ProducerAvroWithSchemaId.class.getClassLoader().getResourceAsStream(dataFile);
+        InputStream inputStream = ProducerDnsAvroWithSchemaId.class.getClassLoader().getResourceAsStream(dataFile);
         String dnsStr = IOUtils.toString(inputStream);
         System.out.println(dnsStr);
         JSONObject dnsJsonObject = JSONObject.parseObject(dnsStr);

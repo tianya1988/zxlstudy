@@ -15,6 +15,7 @@ import utils.ByteUtil;
 import zookeeper.ZookeeperTemplate;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -22,7 +23,7 @@ import java.util.Properties;
 /**
  * Created by jason on 17-9-14.
  */
-public class ProducerAvroWithSchemaId {
+public class ProducerAvroWithSchema {
     public static void main(String[] args) throws IOException {
         /**
          * 交通部
@@ -48,29 +49,30 @@ public class ProducerAvroWithSchemaId {
         /**
          * P1环境
          */
-        int schemaId = 10058;
-        String destTopic = "avro-bj-flow2";
-        String dataFile = "alert/cirrus-dns-flow.json";
-
-//        int schemaId = 1;
-//        String destTopic = "avro-bj-pro-dns2";
-//        String dataFile = "alert/cirrus-dns-dns.json";
-
-        String zkServer = "11.11.127.1:2181";
-        String kafkaServer = "11.11.127.40:6667";
-        String schemaPath = "/cnpc/schema/avro/";
-
+        int schemaId = 1;
+//        String zkServer = "11.11.127.1:2181";
+        String schemaFile = "schema/dns.json";
+        String destTopic = "avro-bj-pro-dns2";
+        String kafkaServer = "10.30.111.1:6667";
+        String schemaPath = "/asap/schema/avro/";
+        String dataFile = "http-remote.json";
 
 
         byte[] schemaIdByte = ByteUtil.littleEndian(schemaId);
 
 
-        InputStream inputStream = ProducerAvroWithSchemaId.class.getClassLoader().getResourceAsStream(dataFile);
+        InputStream inputStream = ProducerAvroWithSchema.class.getClassLoader().getResourceAsStream(dataFile);
         String dnsStr = IOUtils.toString(inputStream);
         System.out.println(dnsStr);
         JSONObject dnsJsonObject = JSONObject.parseObject(dnsStr);
 
-        Schema schema = getSchema(schemaId, zkServer, schemaPath);
+//        Schema schema = getSchema(schemaId, zkServer, schemaPath);
+        Schema schema = null;
+        try {
+            schema = new Schema.Parser().parse(new File(schemaFile));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         System.out.println(schema);
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -96,12 +98,7 @@ public class ProducerAvroWithSchemaId {
         KafkaProducer<String, byte[]> producer = new KafkaProducer<String, byte[]>(kafkaProps);
 
         int i = 0;
-        while (i < 200000) {
-//            try {
-//                Thread.sleep(5);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
+        while (i < 100) {
             producer.send(record);
             System.out.println(i);
             i++;

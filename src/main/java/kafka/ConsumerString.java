@@ -29,7 +29,7 @@ public class ConsumerString {
     public static void main(String[] args) throws Exception {
         Properties props = new Properties();
         props.put("auto.offset.reset", "smallest"); //必须要加，如果要读旧数据
-        props.put("zookeeper.connect", "localhost:2181");
+        props.put("zookeeper.connect", "172.16.0.113:2181");
         props.put("group.id", "group4");
         props.put("zookeeper.session.timeout.ms", "40000");
         props.put("zookeeper.sync.time.ms", "200");
@@ -44,7 +44,7 @@ public class ConsumerString {
         ConsumerConfig conf = new ConsumerConfig(props);
         ConsumerConnector consumer = kafka.consumer.Consumer.createJavaConsumerConnector(conf);
 
-        String topic = "test-dns-2";
+        String topic = "test2";
         Map<String, Integer> topicCountMap = new HashMap<String, Integer>();
         topicCountMap.put(topic, 1);
         Map<String, List<KafkaStream<byte[], byte[]>>> consumerMap = consumer.createMessageStreams(topicCountMap);

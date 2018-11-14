@@ -11,21 +11,24 @@ import java.nio.channels.FileChannel;
  */
 public class FileChannelClassTest {
     public static void main(String[] args) throws IOException {
-        RandomAccessFile aFile = new RandomAccessFile("/home/jason/Desktop/p2-es", "rw");
+        RandomAccessFile aFile = new RandomAccessFile("/home/jason/Desktop/test", "rw");
+        aFile.setLength(100);
         FileChannel inChannel = aFile.getChannel();
+        System.out.println("size is : " + inChannel.size());
+        System.out.println("position is : " + inChannel.position());
 
-        // create buffer with capacity of 48 bytes
-        ByteBuffer buf = ByteBuffer.allocate(48);
-        buf.put("sao ga : ".getBytes());
+        // create buffer with capacity of 200 bytes
+        ByteBuffer buf = ByteBuffer.allocate(200);
+//        buf.put("sao ga : ".getBytes());
 
-        int bytesRead = inChannel.read(buf); // read into buffer.
+        int bytesRead = inChannel.read(buf); // read from channel into buffer.
         while (bytesRead != -1) {
             System.out.println("bytesRead : " + bytesRead);
 
             buf.flip(); //make buffer ready for read
 
             while (buf.hasRemaining()) {
-                System.out.print((char) buf.get()); // read 1 byte at a time
+                System.out.println("content : " + (char) buf.get()); // read 1 byte at a time
             }
 
             buf.clear(); //make buffer ready for writing

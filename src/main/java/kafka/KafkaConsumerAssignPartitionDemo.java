@@ -26,14 +26,14 @@ import java.util.Properties;
 public class KafkaConsumerAssignPartitionDemo {
 
     public static void main(String[] args) throws InterruptedException {
-        String kafkaServer = "11.11.60.127:6667";
-        String zkServer = "11.11.60.127:2181";
+        String kafkaServer = "11.11.127.40:6667";
+        String zkServer = "11.11.127.1:2181";
 
         Properties props = new Properties();
         props.put("auto.offset.reset", "earliest");
         // props.put("bootstrap.servers", "11.59.1.176:6667");
         props.put("bootstrap.servers", kafkaServer);
-//        props.put("group.id", "test-zxl7");
+        props.put("group.id", "scsc-test");
         props.put("enable.auto.commit", "true");
         props.put("auto.commit.interval.ms", "1000");
         props.put("max.partition.fetch.bytes", "15000");
@@ -45,7 +45,7 @@ public class KafkaConsumerAssignPartitionDemo {
         KafkaConsumer<byte[], byte[]> consumer = new KafkaConsumer<byte[], byte[]>(props);
 
         //指定分区
-        TopicPartition partition1 = new TopicPartition("avro-cp-log-fw", 2);
+        TopicPartition partition1 = new TopicPartition("avro-bj-flow2", 8);
 
         ArrayList<TopicPartition> partitionArrayList = new ArrayList<TopicPartition>();
         partitionArrayList.add(partition1);

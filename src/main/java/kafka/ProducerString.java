@@ -1,21 +1,12 @@
 package kafka;
 
 import com.alibaba.fastjson.JSONObject;
-import org.apache.avro.Schema;
-import org.apache.avro.generic.GenericDatumWriter;
-import org.apache.avro.generic.GenericRecord;
-import org.apache.avro.io.BinaryEncoder;
-import org.apache.avro.io.EncoderFactory;
 import org.apache.commons.io.IOUtils;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
-import utils.AvroUtils;
-import utils.ByteUtil;
-import zookeeper.ZookeeperTemplate;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -26,14 +17,14 @@ import java.util.concurrent.Future;
  */
 public class ProducerString {
     public static void main(String[] args) throws IOException, InterruptedException {
-        String bootstrapServers = "localhost:9092";
+        String bootstrapServers = "172.16.0.113:6667";
 
-        InputStream inputStream = ProducerString.class.getClassLoader().getResourceAsStream("dns.json");
+        InputStream inputStream = ProducerString.class.getClassLoader().getResourceAsStream("alert/dns.json");
         String dnsStr = IOUtils.toString(inputStream);
         System.out.println(dnsStr);
         JSONObject dnsJsonObject = JSONObject.parseObject(dnsStr);
 
-        ProducerRecord<String, String> record = new ProducerRecord<String, String>("test-dns3", "zxl", dnsJsonObject.toJSONString());
+        ProducerRecord<String, String> record = new ProducerRecord<String, String>("test2", "zxl", dnsJsonObject.toJSONString());
 
         System.out.println("=======" + dnsJsonObject.toJSONString().getBytes().length);
 

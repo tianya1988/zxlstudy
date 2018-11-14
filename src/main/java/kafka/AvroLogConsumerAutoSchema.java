@@ -25,7 +25,7 @@ public class AvroLogConsumerAutoSchema {
         Properties props = new Properties();
         props.put("auto.offset.reset", "smallest"); //必须要加，如果要读旧数据
         props.put("zookeeper.connect", zkServer);
-        props.put("group.id", "BluecoatToEs-bj-log-bluecoat-spark-agent-test-zxl-temp3");
+        props.put("group.id", "scsc-test");
         props.put("zookeeper.session.timeout.ms", "40000");
         props.put("zookeeper.sync.time.ms", "200");
         props.put("auto.commit.interval.ms", "1000");
@@ -33,7 +33,7 @@ public class AvroLogConsumerAutoSchema {
         ConsumerConfig conf = new ConsumerConfig(props);
         ConsumerConnector consumer = kafka.consumer.Consumer.createJavaConsumerConnector(conf);
 
-        String topic = "avro-cp-log-bluecoat";
+        String topic = "avro-bj-pro-dns2";
         Map<String, Integer> topicCountMap = new HashMap<String, Integer>();
         topicCountMap.put(topic, 1);
         Map<String, List<KafkaStream<byte[], byte[]>>> consumerMap = consumer.createMessageStreams(topicCountMap);
