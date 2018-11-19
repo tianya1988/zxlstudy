@@ -105,10 +105,6 @@ public class ProducerFlowAvroWithSchemaIdFromDir {
                     byte[] resultBytes = outputStream.toByteArray();
                     ProducerRecord<String, byte[]> record = new ProducerRecord<String, byte[]>(destTopic, null, resultBytes);
                     producer.send(record);
-                    i++;
-                    if (i % 1000 == 0) {
-                        producer.flush();
-                    }
 //                    try {
 //                        Thread.sleep(5);
 //                    } catch (InterruptedException e) {
