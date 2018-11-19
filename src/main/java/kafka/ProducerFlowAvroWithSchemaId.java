@@ -22,7 +22,7 @@ import java.util.Properties;
 /**
  * Created by jason on 17-9-14.
  */
-public class ProducerAvroWithSchemaId {
+public class ProducerFlowAvroWithSchemaId {
     public static void main(String[] args) throws IOException {
         /**
          * 交通部
@@ -65,7 +65,7 @@ public class ProducerAvroWithSchemaId {
         byte[] schemaIdByte = ByteUtil.littleEndian(schemaId);
 
 
-        InputStream inputStream = ProducerAvroWithSchemaId.class.getClassLoader().getResourceAsStream(dataFile);
+        InputStream inputStream = ProducerFlowAvroWithSchemaId.class.getClassLoader().getResourceAsStream(dataFile);
         String dnsStr = IOUtils.toString(inputStream);
         System.out.println(dnsStr);
         JSONObject dnsJsonObject = JSONObject.parseObject(dnsStr);

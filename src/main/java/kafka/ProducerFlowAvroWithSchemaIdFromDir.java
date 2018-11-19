@@ -55,9 +55,9 @@ public class ProducerFlowAvroWithSchemaIdFromDir {
 //        String destTopic = "avro-bj-flow2";
 //        String dataFile = "alert/cirrus-dns-flow.json";
 
-        int schemaId = 1;
-        String destTopic = "avro-bj-pro-dns2-test";
-        String dataFile = "alert/cirrus-dns-dns.json";
+        int schemaId = 10058;
+        String destTopic = "avro-bj-pro-flow2";
+        String dataFile = "alert/cirrus-dns-flow.json";
 
         String zkServer = "11.11.127.1:2181";
         String kafkaServer = "11.11.127.40:6667";
@@ -77,7 +77,7 @@ public class ProducerFlowAvroWithSchemaIdFromDir {
         byte[] schemaIdByte = ByteUtil.littleEndian(schemaId);
 
 
-        File dir = new File("/home/jason/Desktop/mid_dns");
+        File dir = new File("/home/jason/Desktop/mid_flow");
         if (dir.isDirectory()) {
             File[] files = dir.listFiles();
             int i = 0;
