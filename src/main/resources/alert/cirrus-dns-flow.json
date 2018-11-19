@@ -1,9 +1,9 @@
 {
   "flag": 27,
   "device_type": "0",
-  "dst_ip": 184560756,
+  "dst_ip": 1729286225,
   "pkts": 24,
-  "src_ip": 1729286225,
+  "src_ip": 184560756,
   "output": 6,
   "revice_port": 9991,
   "log_type": "flow",

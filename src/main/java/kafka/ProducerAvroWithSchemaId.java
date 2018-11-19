@@ -96,15 +96,18 @@ public class ProducerAvroWithSchemaId {
         KafkaProducer<String, byte[]> producer = new KafkaProducer<String, byte[]>(kafkaProps);
 
         int i = 0;
-        while (i < 200000) {
-//            try {
-//                Thread.sleep(5);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
+        while (i < 200000000) {
+            try {
+                Thread.sleep(5);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             producer.send(record);
             System.out.println(i);
             i++;
+            if (i % 1000 ==0) {
+                producer.flush();
+            }
         }
         producer.flush();
 
