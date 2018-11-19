@@ -23,7 +23,7 @@ import java.util.Properties;
 /**
  * Created by jason on 18-1-9.
  */
-public class KafkaConsumerAssignPartitionDemo {
+public class KafkaConsumerAssignPartitionDemoWithSchema {
 
     public static void main(String[] args) throws InterruptedException {
         String kafkaServer = "11.11.127.40:6667";

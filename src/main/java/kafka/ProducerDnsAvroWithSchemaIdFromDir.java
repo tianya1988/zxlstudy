@@ -57,7 +57,7 @@ public class ProducerDnsAvroWithSchemaIdFromDir {
 //        String dataFile = "alert/cirrus-dns-flow.json";
 
         int schemaId = 1;
-        String destTopic = "avro-bj-pro-dns2-test";
+        String destTopic = "avro-bj-pro-dns2";
         String dataFile = "alert/cirrus-dns-dns.json";
 
         String zkServer = "11.11.127.1:2181";

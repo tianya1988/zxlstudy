@@ -25,13 +25,13 @@ public class KafkaConsumerDemoWithSchema {
     public static void main(String[] args) throws InterruptedException {
         String zkServer = "11.11.127.1:2181";
         String kafkaServer = "11.11.127.40:6667";
-        String destTopic = "avro-bj-pro-dns2-test";
+        String destTopic = "avro-bj-pro-flow2";
 
         Properties props = new Properties();
         props.put("auto.offset.reset", "earliest");
         // props.put("bootstrap.servers", "11.59.1.176:6667");
         props.put("bootstrap.servers", kafkaServer);
-        props.put("group.id", "test-zxl7");
+        props.put("group.id", "test-zxl8");
         props.put("enable.auto.commit", "true");
         props.put("auto.commit.interval.ms", "1000");
         props.put("max.partition.fetch.bytes", "15000");
