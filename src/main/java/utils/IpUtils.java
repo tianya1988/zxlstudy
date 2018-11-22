@@ -117,7 +117,7 @@ public class IpUtils {
 //        System.out.println(long2ip(longs[0]));
 //        System.out.println(longs[1]);
 //        System.out.println(long2ip(longs[1]));
-        System.out.println(long2ip(169573015l));
-        System.out.println(ip2long("101.69.121.40"));
+        System.out.println(long2ip(1123631134l));
+        System.out.println(ip2long("148.81.111.121"));
     }
 }

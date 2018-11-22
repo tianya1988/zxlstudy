@@ -1,9 +1,9 @@
 {
   "flag": 27,
   "device_type": "0",
-  "dst_ip": 1729286225,
+  "dst_ip": 3325457861,
   "pkts": 24,
-  "src_ip": 184560756,
+  "src_ip": 167779952,
   "output": 6,
   "revice_port": 9991,
   "log_type": "flow",
@@ -20,12 +20,12 @@
   "src_ipv6": "0",
   "dst_ip_ver": 4,
   "device_ip": 184560755,
-  "src_port": 53,
+  "src_port": 40522,
   "input": 7,
   "report_time": 1542079060912,
   "bytes": 6238,
   "proto": "6",
-  "dst_port": 53,
+  "dst_port": 8000,
   "src_ip_ver": 4,
   "src_device_ip": 169981129
 }

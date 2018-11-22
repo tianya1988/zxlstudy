@@ -15,7 +15,6 @@ import utils.ByteUtil;
 import zookeeper.ZookeeperTemplate;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -33,7 +32,7 @@ public class ProducerAvroWithSchema {
         String destTopic = "avro-bjg-pro-http";
         String kafkaServer = "10.30.111.1:6667";
         String schemaPath = "/asap/schema/avro/";
-        String dataFile = "http-remote.json";*/
+        String dataFile = "http-malice.json";*/
 
 
         /***
@@ -49,14 +48,23 @@ public class ProducerAvroWithSchema {
         /**
          * P1环境
          */
-        int schemaId = 1;
+       /* int schemaId = 1;
 //        String zkServer = "11.11.127.1:2181";
         String schemaFile = "schema/dns.json";
         String destTopic = "avro-bj-pro-dns2";
         String kafkaServer = "10.30.111.1:6667";
         String schemaPath = "/asap/schema/avro/";
         String dataFile = "http-remote.json";
-
+*/
+        /**
+         * P2环境
+         */
+        int schemaId = 10036;
+        String zkServer = "11.11.127.1:2181";
+        String destTopic = "enrich-bj-pro-http-threat";
+        String kafkaServer = "11.11.127.23:6667";
+        String schemaPath = "/cnpc/schema/avro/";
+        String dataFile = "alert/http-threat.json";
 
         byte[] schemaIdByte = ByteUtil.littleEndian(schemaId);
 
@@ -66,14 +74,14 @@ public class ProducerAvroWithSchema {
         System.out.println(dnsStr);
         JSONObject dnsJsonObject = JSONObject.parseObject(dnsStr);
 
-//        Schema schema = getSchema(schemaId, zkServer, schemaPath);
-        Schema schema = null;
+        Schema schema = getSchema(schemaId, zkServer, schemaPath);
+ /*       Schema schema = null;
         try {
             schema = new Schema.Parser().parse(new File(schemaFile));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(schema);
+        System.out.println(schema);*/
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         outputStream.write(schemaIdByte);
@@ -98,7 +106,7 @@ public class ProducerAvroWithSchema {
         KafkaProducer<String, byte[]> producer = new KafkaProducer<String, byte[]>(kafkaProps);
 
         int i = 0;
-        while (i < 100) {
+        while (i < 1000) {
             producer.send(record);
             System.out.println(i);
             i++;

@@ -57,7 +57,7 @@ public class ProducerDnsAvroWithSchemaId {
         String dataFile = "alert/cirrus-dns-dns.json";
 
         String zkServer = "11.11.127.1:2181";
-        String kafkaServer = "11.11.127.40:6667";
+        String kafkaServer = "11.11.184.183:6667";
         String schemaPath = "/cnpc/schema/avro/";
 
 
