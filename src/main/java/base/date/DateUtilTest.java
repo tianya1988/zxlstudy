@@ -1,4 +1,6 @@
-package base.dateformat;
+package base.date;
+
+import base.date.DateUtil;
 
 import java.text.ParseException;
 
@@ -17,7 +19,7 @@ public class DateUtilTest {
                     e1.printStackTrace();
                 }
                 try {
-                    System.out.println(this.getName()+":"+DateUtil.parse("2013-05-24 06:02:20"));
+                    System.out.println(this.getName()+":"+ DateUtil.parse("2013-05-24 06:02:20"));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
