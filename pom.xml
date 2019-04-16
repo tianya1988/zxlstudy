@@ -157,6 +157,11 @@
             <artifactId>spring-web</artifactId>
             <version>4.3.17.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.46</version>
+        </dependency>
         <!-- http ending -->
 
     </dependencies>
