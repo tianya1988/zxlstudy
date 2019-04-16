@@ -103,7 +103,7 @@ public class AESUtil {
 
 
     /**
-     * 将二进制转换成16进制
+     * 将字节数组转换成16进制
      *
      * @param buf
      * @return
@@ -121,7 +121,7 @@ public class AESUtil {
     }
 
     /**
-     * 将16进制转换为二进制
+     * 将16进制转换为字节数组
      *
      * @param hexStr
      * @return
