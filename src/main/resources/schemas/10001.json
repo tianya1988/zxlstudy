@@ -1,0 +1,347 @@
+{
+  "namespace": "pro-http",
+  "name": "pro_http",
+  "type": "record",
+  "fields": [
+    {
+      "name": "log_id",
+      "type": "string"
+    },
+    {
+      "name": "log_type",
+      "type": "string"
+    },
+    {
+      "name": "device_ip",
+      "type": "long"
+    },
+    {
+      "name": "device_name",
+      "type": "string"
+    },
+    {
+      "name": "device_type",
+      "type": "string"
+    },
+    {
+      "name": "recv_time",
+      "type": "long"
+    },
+    {
+      "name": "report_time",
+      "type": "long"
+    },
+    {
+      "name": "src_ip",
+      "type": "long"
+    },
+    {
+      "name": "src_ipv6",
+      "type": "string"
+    },
+    {
+      "name": "src_ip_ver",
+      "type": "int"
+    },
+    {
+      "name": "src_port",
+      "type": "int"
+    },
+    {
+      "name": "dst_ip",
+      "type": "long"
+    },
+    {
+      "name": "dst_ipv6",
+      "type": "string"
+    },
+    {
+      "name": "dst_ip_ver",
+      "type": "int"
+    },
+    {
+      "name": "dst_port",
+      "type": "int"
+    },
+    {
+      "name": "http_relationId",
+      "type": "string"
+    },
+    {
+      "name": "http_op_type",
+      "type": "string"
+    },
+    {
+      "name": "http_method",
+      "type": "string"
+    },
+    {
+      "name": "http_uri",
+      "type": "string"
+    },
+    {
+      "name": "http_rescode",
+      "type": "int"
+    },
+    {
+      "name": "http_version",
+      "type": "string"
+    },
+    {
+      "name": "http_resphrase",
+      "type": "string"
+    },
+    {
+      "name": "http_accept",
+      "type": "string"
+    },
+    {
+      "name": "http_acceptcharset",
+      "type": "string"
+    },
+    {
+      "name": "http_acceptencoding",
+      "type": "string"
+    },
+    {
+      "name": "http_acceptlanguage",
+      "type": "string"
+    },
+    {
+      "name": "http_acceptranges",
+      "type": "string"
+    },
+    {
+      "name": "http_age",
+      "type": "string"
+    },
+    {
+      "name": "http_allow",
+      "type": "string"
+    },
+    {
+      "name": "http_authorization",
+      "type": "string"
+    },
+    {
+      "name": "http_cachecontrol",
+      "type": "string"
+    },
+    {
+      "name": "http_clientIp",
+      "type": "string"
+    },
+    {
+      "name": "http_connection",
+      "type": "string"
+    },
+    {
+      "name": "http_content_base",
+      "type": "string"
+    },
+    {
+      "name": "http_contentencoding",
+      "type": "string"
+    },
+    {
+      "name": "http_contentlanguage",
+      "type": "string"
+    },
+    {
+      "name": "http_contentlength",
+      "type": "long"
+    },
+    {
+      "name": "http_contentlocation",
+      "type": "string"
+    },
+    {
+      "name": "http_contentmd5",
+      "type": "string"
+    },
+    {
+      "name": "http_contentrange",
+      "type": "string"
+    },
+    {
+      "name": "http_cookie",
+      "type": "string"
+    },
+    {
+      "name": "http_cookie2",
+      "type": "string"
+    },
+    {
+      "name": "http_contenttype",
+      "type": "string"
+    },
+    {
+      "name": "http_date",
+      "type": "long"
+    },
+    {
+      "name": "http_etag",
+      "type": "string"
+    },
+    {
+      "name": "http_expect",
+      "type": "string"
+    },
+    {
+      "name": "http_expires",
+      "type": "long"
+    },
+    {
+      "name": "http_from",
+      "type": "string"
+    },
+    {
+      "name": "http_host",
+      "type": "string"
+    },
+    {
+      "name": "http_Ifmatch",
+      "type": "string"
+    },
+    {
+      "name": "http_Ifmodifiedsince",
+      "type": "long"
+    },
+    {
+      "name": "http_Ifnonematch",
+      "type": "string"
+    },
+    {
+      "name": "http_Ifrange",
+      "type": "string"
+    },
+    {
+      "name": "http_Ifunmodifiedsince",
+      "type": "long"
+    },
+    {
+      "name": "http_lastmodified",
+      "type": "long"
+    },
+    {
+      "name": "http_location",
+      "type": "string"
+    },
+    {
+      "name": "http_maxforwards",
+      "type": "string"
+    },
+    {
+      "name": "http_mImeversion",
+      "type": "string"
+    },
+    {
+      "name": "http_pragma",
+      "type": "string"
+    },
+    {
+      "name": "http_proxyauthenticate",
+      "type": "string"
+    },
+    {
+      "name": "http_proxyauthorization",
+      "type": "string"
+    },
+    {
+      "name": "http_proxyconnection",
+      "type": "string"
+    },
+    {
+      "name": "http_public",
+      "type": "string"
+    },
+    {
+      "name": "http_range",
+      "type": "string"
+    },
+    {
+      "name": "http_referer",
+      "type": "string"
+    },
+    {
+      "name": "http_retryafter",
+      "type": "string"
+    },
+    {
+      "name": "http_setcookie",
+      "type": "string"
+    },
+    {
+      "name": "http_setcookie2",
+      "type": "string"
+    },
+    {
+      "name": "http_server",
+      "type": "string"
+    },
+    {
+      "name": "http_te",
+      "type": "string"
+    },
+    {
+      "name": "http_trailer",
+      "type": "string"
+    },
+    {
+      "name": "http_title",
+      "type": "string"
+    },
+    {
+      "name": "http_transferencoding",
+      "type": "string"
+    },
+    {
+      "name": "http_upgrade",
+      "type": "string"
+    },
+    {
+      "name": "http_useragent",
+      "type": "string"
+    },
+    {
+      "name": "http_vary",
+      "type": "string"
+    },
+    {
+      "name": "http_via",
+      "type": "string"
+    },
+    {
+      "name": "http_warning",
+      "type": "string"
+    },
+    {
+      "name": "http_wwwauthenticate",
+      "type": "string"
+    },
+    {
+      "name": "http_xcache",
+      "type": "string"
+    },
+    {
+      "name": "http_xforwardedfor",
+      "type": "string"
+    },
+    {
+      "name": "http_xpad",
+      "type": "string"
+    },
+    {
+      "name": "http_xserialnumber",
+      "type": "string"
+    },
+    {
+      "name": "http_payload_type",
+      "type": "string"
+    },
+    {
+      "name": "http_payload_data",
+      "type": "string"
+    }
+  ]
+}
