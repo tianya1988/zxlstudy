@@ -20,8 +20,8 @@ public class AvroLogConsumer {
     public static void main(String[] args) throws Exception {
         Properties props = new Properties();
         props.put("auto.offset.reset", "smallest"); //必须要加，如果要读旧数据
-        props.put("zookeeper.connect", "11.11.127.93:2181");
-        props.put("group.id", "sirui");
+        props.put("zookeeper.connect", "10.30.111.1:2181");
+        props.put("group.id", "screen001");
         props.put("zookeeper.session.timeout.ms", "40000");
         props.put("zookeeper.sync.time.ms", "200");
         props.put("auto.commit.interval.ms", "1000");
@@ -29,7 +29,7 @@ public class AvroLogConsumer {
         ConsumerConfig conf = new ConsumerConfig(props);
         ConsumerConnector consumer = kafka.consumer.Consumer.createJavaConsumerConnector(conf);
 
-        String topic = "avro-bj-pro-http";
+        String topic = "alert-bjg-http-scan";
         Map<String, Integer> topicCountMap = new HashMap<String, Integer>();
         topicCountMap.put(topic, 1);
         Map<String, List<KafkaStream<byte[], byte[]>>> consumerMap = consumer.createMessageStreams(topicCountMap);
@@ -40,7 +40,7 @@ public class AvroLogConsumer {
 
         Schema schema = null;
         try {
-            schema = new Schema.Parser().parse(new File("/home/jason/Desktop/sirui-app/流解析-读取kafka/schema-http.json"));
+            schema = new Schema.Parser().parse(new File("/home/jason/project/zxlstudy/src/main/resources/schemas/10001.json"));
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -59,12 +59,12 @@ public class ProducerAvroWithSchema {
         /**
          * P2环境
          */
-        int schemaId = 10036;
-        String zkServer = "11.11.127.1:2181";
-        String destTopic = "enrich-bj-pro-http-threat";
-        String kafkaServer = "11.11.127.23:6667";
-        String schemaPath = "/cnpc/schema/avro/";
-        String dataFile = "alert/http-threat.json";
+        int schemaId = 10006;
+        String zkServer = "10.30.111.1:2181";
+        String destTopic = "avro-bjg-pro-http";
+        String kafkaServer = "10.30.111.1:6667";
+        String schemaPath = "/asap/schema/avro/";
+        String dataFile = "alert/http-scan.json";
 
         byte[] schemaIdByte = ByteUtil.littleEndian(schemaId);
 
@@ -106,7 +106,7 @@ public class ProducerAvroWithSchema {
         KafkaProducer<String, byte[]> producer = new KafkaProducer<String, byte[]>(kafkaProps);
 
         int i = 0;
-        while (i < 1000) {
+        while (i < 100) {
             producer.send(record);
             System.out.println(i);
             i++;

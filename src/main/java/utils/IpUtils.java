@@ -4,6 +4,33 @@ import java.math.BigInteger;
 
 public class IpUtils {
 
+    public static boolean isInnerIp(String ip) {
+        if (ip.startsWith("10.1") || ip.startsWith("10.2.") || ip.startsWith("10.3.") || ip.startsWith("10.30.")
+                || ip.startsWith("172.") || ip.startsWith("192.168.") || ip.startsWith("10.250.")) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static boolean isInnerIp(long ipLong) {
+        /**
+         * 1、A类地址：10.0.0.0 -----------  10.255.255.255  167772160----184549375
+         * 2、B类地址：172.16.0.0----------172.31.255.255  2886729728-----2887778303
+         * 3、C类地址：192.168.0.0---------192.168.255.255  3232235520-----3232301055
+         */
+        if (ipLong > 167772160l && ipLong < 184549375l) {
+            return true;
+        } else if (ipLong > 2886729728l && ipLong < 2887778303l) {
+            return true;
+        }
+        if (ipLong > 3232235520l && ipLong < 3232301055l) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public static long ip2long(String ipv4) {
 
         String[] splits = ipv4.split("\\.");
@@ -118,6 +145,6 @@ public class IpUtils {
 //        System.out.println(longs[1]);
 //        System.out.println(long2ip(longs[1]));
         System.out.println(long2ip(1123631134l));
-        System.out.println(ip2long("148.81.111.121"));
+        System.out.println(ip2long("54.255.162.105"));
     }
 }
