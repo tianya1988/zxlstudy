@@ -287,6 +287,13 @@
             <systemPath>/home/jason/.m2/repository/local/bcprov-jdk15on-1.46.jar</systemPath>
         </dependency>
 
+        <!-- Ganymed for SCP SFTP -->
+        <dependency>
+            <groupId>ch.ethz.ganymed</groupId>
+            <artifactId>ganymed-ssh2</artifactId>
+            <version>build210</version>
+        </dependency>
+
     </dependencies>
 
 </project>
