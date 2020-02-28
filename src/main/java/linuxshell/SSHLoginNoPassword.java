@@ -21,7 +21,9 @@ public class SSHLoginNoPassword {
         sshConfig.setPrivateKeyFilePath("/home/jason/.ssh/id_rsa");
 
         Connection connection = getConnection(sshConfig);
-        String s = execCommand(connection, " ll /root ", true);
+//        String s = execCommand(connection, "tailf -n100 /var/log/messages", true);
+        String s = execCommand(connection, "tailf -n100 /var/log/messages", true);
+
         System.out.println(s);
     }
 
@@ -35,6 +37,17 @@ public class SSHLoginNoPassword {
             if (readReturn) {
                 InputStream stdout = new StreamGobbler(session.getStdout());
                 br = new BufferedReader(new InputStreamReader(stdout));
+                int i = 0;
+                while (true) {
+                    String line = br.readLine();
+                    i++;
+                    System.out.println("===== " + i + " : " + line);
+                    if (i == 20) {
+                        closeQuietly(session);
+                        break;
+                    }
+                }
+                System.out.println("status : " + session.getExitStatus());
                 return IOUtils.toString(br);
             } else {
                 return null;
@@ -98,4 +111,5 @@ public class SSHLoginNoPassword {
             //do nothing;
         }
     }
+    
 }
