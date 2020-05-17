@@ -16,13 +16,14 @@ public class SSHLoginNoPassword {
 
     public static void main(String[] args) {
         SSHConfig sshConfig = new SSHConfig();
-        sshConfig.setHost("172.16.0.196");
-        sshConfig.setUsername("root");
-        sshConfig.setPrivateKeyFilePath("/home/jason/.ssh/id_rsa");
+        sshConfig.setHost("172.16.254.1");
+        sshConfig.setUsername("litao");
+//        sshConfig.setPrivateKeyFilePath("/home/jason/.ssh/id_rsa");
+        sshConfig.setPassword("Litao990087");
 
         Connection connection = getConnection(sshConfig);
 //        String s = execCommand(connection, "tailf -n100 /var/log/messages", true);
-        String s = execCommand(connection, "tailf -n100 /var/log/messages", true);
+        String s = execCommand(connection, "display acl 3200", true);
 
         System.out.println(s);
     }
