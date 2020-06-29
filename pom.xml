@@ -14,7 +14,7 @@
         <spark.streaming.kafka.version>2.1.0</spark.streaming.kafka.version>
     </properties>
 
-        <repositories>
+        <!--<repositories>
             <repository>
                 <id>Central</id>
                 <url>https://repo1.maven.org/maven2/</url>
@@ -35,7 +35,7 @@
                     <enabled>true</enabled>
                 </snapshots>
             </repository>
-        </repositories>
+        </repositories>-->
 
     <dependencies>
 
@@ -309,6 +309,23 @@
             <artifactId>ganymed-ssh2</artifactId>
             <version>build210</version>
         </dependency>
+
+        <!-- excel beginning -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>4.1.2</version>
+            <scope>system</scope>
+            <systemPath>/home/jason/.m2/repository/org/apache/poi/poi/4.1.2/poi-4.1.2.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>4.1.2</version>
+            <scope>system</scope>
+            <systemPath>/home/jason/.m2/repository/org/apache/poi/poi-ooxml/4.1.2/poi-ooxml-4.1.2.jar</systemPath>
+        </dependency>
+        <!-- excel ending -->
 
 
 
