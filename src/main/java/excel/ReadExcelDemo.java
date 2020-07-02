@@ -1,4 +1,4 @@
-/*
+
 package excel;
 
 
@@ -6,36 +6,29 @@ import org.apache.poi.ss.usermodel.*;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
-*/
-/**
- * @ClassName ReadExcel
- * @Description TODO
- * @Author shuai
- * @Date 2018/8/9 17:43
- * @Version 1.0
- **//*
 
-public class StatisticExcel {
+public class ReadExcelDemo {
 
     public static void main(String[] args) {
-        readExcel("E:\\D9Code\\001.xlsx");
+        readExcel("/home/jason/Desktop/car2/1.xls");
     }
 
     public static void readExcel(String path) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         File file = new File(path);
-        FileInputStream fis = null;
+        FileInputStream fileInputStream = null;
         Workbook workBook = null;
+
         if (file.exists()) {
             try {
-                fis = new FileInputStream(file);
-                workBook = WorkbookFactory.create(fis);
+                fileInputStream = new FileInputStream(file);
+                workBook = WorkbookFactory.create(fileInputStream);
+
                 int numberOfSheets = workBook.getNumberOfSheets();
-                // sheet工作表
-                for (int s = 0; s < numberOfSheets; s++) {
+                System.out.println("number of sheets is : " + numberOfSheets);
+
+                // sheet0工作表
+                for (int s = 0; s < 1; s++) {
                     Sheet sheetAt = workBook.getSheetAt(s);
                     //获取工作表名称
                     String sheetName = sheetAt.getSheetName();
@@ -43,29 +36,56 @@ public class StatisticExcel {
                     // 获取当前Sheet的总行数
                     int rowsOfSheet = sheetAt.getPhysicalNumberOfRows();
                     System.out.println("当前表格的总行数:" + rowsOfSheet);
-                    // 第一行
-                    Row row0 = sheetAt.getRow(0);
-                    int physicalNumberOfCells = sheetAt.getRow(0).getPhysicalNumberOfCells();
+
+                    int beginRowNum = 0;
+
+                    //跳过第一行(此为合并行);
+                    for (int i = 1; i < rowsOfSheet; i++) {
+                        Row row = sheetAt.getRow(i);
+                        if ("编号".equals(row.getCell(0).getStringCellValue()) && "时间".equals(row.getCell(1).getStringCellValue())) {
+                            beginRowNum = i;
+                        }
+                    }
+                    System.out.println("beginRowNum is : " + beginRowNum);
+
+                    // 计算 beginRow 一共有几列
+                    Row beginRow = sheetAt.getRow(beginRowNum);
+                    int physicalNumberOfCells = sheetAt.getRow(beginRowNum).getPhysicalNumberOfCells();
+                    System.out.println("physicalNumberOfCells is : " + physicalNumberOfCells);
+
+                    // 统计列名  :  编号  时间  温度°C
                     String[] title = new String[physicalNumberOfCells];
                     for (int i = 0; i < physicalNumberOfCells; i++) {
-                        title[i] = row0.getCell(i).getStringCellValue();
+                        title[i] = beginRow.getCell(i).getStringCellValue();
                     }
-                    for (int r = 1; r < rowsOfSheet; r++) {
+
+                    for (int r = (beginRowNum + 1); r < rowsOfSheet; r++) {
                         Row row = sheetAt.getRow(r);
                         if (row == null) {
                             continue;
                         } else {
                             int rowNum = row.getRowNum() + 1;
                             System.out.println("当前行:" + rowNum);
+
+                            for (int columnNum = 0; columnNum < physicalNumberOfCells; columnNum++) {
+                                Cell cell = row.getCell(columnNum);
+                                if ((cell.getCellTypeEnum() == CellType.STRING)) {
+                                    String cellValue = cell.getStringCellValue();
+                                    System.out.println(title[columnNum] + " : " + cellValue);
+                                } else {
+                                    System.out.println("第" + rowNum + "行，第" + (columnNum + 1) + "列[" + title[columnNum] + "]数据错误！");
+                                }
+                            }
+
+                            /*
                             // 总列(格)
                             Cell cell0 = row.getCell(0);
                             Cell cell1 = row.getCell(1);
                             Cell cell2 = row.getCell(2);
-                            Cell cell3 = row.getCell(3);
-                            Cell cell4 = row.getCell(4);
 
-                            if ((cell0.getCellTypeEnum() == CellType.NUMERIC) && (!DateUtil.isCellDateFormatted(cell0))) {
-                                int numericCellValue = (int) cell0.getNumericCellValue();
+
+                            if ((cell0.getCellTypeEnum() == CellType.STRING)) {
+                                String numericCellValue = cell0.getStringCellValue();
                                 System.out.println(numericCellValue);
                             } else {
                                 System.out.println("第" + rowNum + "行，第一列[" + title[0] + "]数据错误！");
@@ -82,30 +102,21 @@ public class StatisticExcel {
                             } else {
                                 System.out.println("第" + rowNum + "行，第三列[" + title[2] + "]数据错误！");
                             }
-                            if ((cell3.getCellTypeEnum() == CellType.NUMERIC) && DateUtil.isCellDateFormatted(cell3)) {
-                                Date dateCellValue = cell3.getDateCellValue();
-                                System.out.println(sdf.format(dateCellValue));
-                            } else {
-                                System.out.println("第" + rowNum + "行，第四列[" + title[3] + "]数据错误！");
-                            }
-                            if ((cell4.getCellTypeEnum() == CellType.NUMERIC) && (!DateUtil.isCellDateFormatted(cell4))) {
-                                double numericCellValue = cell4.getNumericCellValue();
-                                System.out.println(numericCellValue);
-                            } else {
-                                System.out.println("第" + rowNum + "行，第五列[" + title[4] + "]数据错误！");
-                            }
+                            */
+
+                            System.out.println("=============");
                         }
                     }
                 }
-                if (fis != null) {
-                    fis.close();
+                if (fileInputStream != null) {
+                    fileInputStream.close();
                 }
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         } else {
             System.out.println("文件不存在!");
         }
     }
-*/
+}
+
