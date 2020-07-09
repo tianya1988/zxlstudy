@@ -26,7 +26,7 @@ public class CreateExcelDemo {
     private static final String EXCEL_XLSX = "xlsx";
 
 
-    private static void createExcel(String filePath) {
+    public static void createExcel(String filePath) {
         FileOutputStream out = null;
         try {
             // 创建工作薄

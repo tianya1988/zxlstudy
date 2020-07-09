@@ -25,9 +25,14 @@ public class WriteExcelDemo {
 
             rowList.add(cellList);
         }
+
+        String outFile = "/home/jason/Desktop/car2/data2.xls";
+
+        // 创建输出excel表格
+        CreateExcelDemo.createExcel(outFile);
+
         // 写入数据
-        writeExcel(rowList, "/home/jason/Desktop/car2/data2.xls");
-        writeExcel(rowList, "/home/jason/Desktop/car2/data2.xls");
+        writeExcel(rowList, outFile);
         // 删除数据
 //        deleteMessage(2, 5, "E:\\123.xls");
 //        deleteMessage(6, 9, "E:\\123.xlsx");
@@ -101,7 +106,7 @@ public class WriteExcelDemo {
                 }
             }
             // 第一列列宽为10
-            sheet.setColumnWidth(0, (int) ((10 + 0.72) * 256));
+            sheet.setColumnWidth(0, (int) ((20 + 0.72) * 256));
             out = new FileOutputStream(filePath);
             workbook.write(out);
         } catch (Exception e) {
