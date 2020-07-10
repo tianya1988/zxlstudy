@@ -59,7 +59,7 @@ public class BlackUrl {
                 domain = domain.toLowerCase();
                 String uri = replacedUrl.substring(index, replacedUrl.length());
 
-                rule = "alert http any any -> any any (msg:\"intelligence black http url\"; http.host; content:\"" + domain + "\"; fast_pattern; http.uri; content:\"" + uri + "\"; nocase; priority:255; sid:" + (sid++) + "; rev:1; metadata:matchType ti-scsc-url, created_at 2020_06_29, updated_at 2020_06_29;)";
+                rule = "alert http any any -> any any (msg:\"intelligence black http url\"; http.host; content:\"" + domain + "\"; fast_pattern; http.uri; content:\"" + uri + "\"; endswith; nocase; priority:255; sid:" + (sid++) + "; rev:1; metadata:matchType ti-scsc-url, created_at 2020_06_29, updated_at 2020_06_29;)";
             }
 
             IOUtils.write(rule, outputStream);
@@ -71,8 +71,8 @@ public class BlackUrl {
     }
 
     public static void main(String[] args) throws IOException {
-//        generate();
-        String url = "http://charttar.net/w_hld/a1/it0/qrt_9n/1_*/0_/sr?|=";
+        generate();
+       /* String url = "http://charttar.net/w_hld/a1/it0/qrt_9n/1_*//*0_/sr?|=";
         String replacedUrl = url.replace("http://", "");
         replacedUrl = replacedUrl.replaceAll("\\|", "|7C|");
         replacedUrl = replacedUrl.replaceAll("\"", "|22|");
@@ -90,7 +90,7 @@ public class BlackUrl {
         String domain = replacedUrl.substring(0, index);
         System.out.println(domain);
         String uri = replacedUrl.substring(index, replacedUrl.length());
-        System.out.println(uri);
+        System.out.println(uri);*/
     }
 
 }
