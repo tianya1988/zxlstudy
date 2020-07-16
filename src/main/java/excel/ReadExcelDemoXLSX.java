@@ -52,7 +52,7 @@ public class ReadExcelDemoXLSX {
                          * 合并后的单元格,在实际读取的时候,相当于是首行的值,其他行值为空
                          * 当遇到空的时候,应该从上一行记录中读取值
                          */
-                        hashMap.put(column, list.get(rowNum -1).get(column));
+                        hashMap.put(column, list.get(list.size() - 1).get(column));
                     } else {
                         hashMap.put(column, row.getCell(column).getStringCellValue());
                     }
