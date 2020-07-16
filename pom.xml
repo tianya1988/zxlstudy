@@ -100,6 +100,13 @@
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-common</artifactId>
             <version>${hadoop.version}</version>
+            <!-- 之所以排除掉是因为此包与处理excel的包(下面的依赖包)有冲突;具体体现在 -->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.commons</groupId>
+                    <artifactId>commons-compress</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- 缺少此包，获取Hadoop FileSystem时将失败 -->
@@ -315,15 +322,11 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
             <version>4.1.2</version>
-            <scope>system</scope>
-            <systemPath>/home/jason/.m2/repository/org/apache/poi/poi/4.1.2/poi-4.1.2.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
             <version>4.1.2</version>
-            <scope>system</scope>
-            <systemPath>/home/jason/.m2/repository/org/apache/poi/poi-ooxml/4.1.2/poi-ooxml-4.1.2.jar</systemPath>
         </dependency>
         <!-- excel ending -->
 
