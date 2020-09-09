@@ -12,6 +12,7 @@ import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,17 +31,31 @@ public class RSAEncrypt2 {
         genKeyPair();
 
         //测试匹配的秘钥对的情况
-//        keyMap.put(0, "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCHWoyoE3e6OVbFdrg2+dUHEjUB/QY+zjNhe1HuvpBDCu1rqeFXA068GTW8NwHqvO67BAOp6/xdzP1uMyOVGA6aWa/i9mEj1E2UFep+2iP1NgDgCBpj0GOYogurAKlBBdGr85Db7Sb5WgnD/HYoK/C8c4yKxR8WxG/m93lA4ipaEQIDAQAB");
-//        keyMap.put(1, "MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAMdwclRYY19MrJNovmbSdUS/iKFH+g4ec0NsYeMhHDf9xpsPgYDngVeNkPmZcY8XisgbsGc1zupXNbUj7iQU/uOnQIlXKyi6P6pUIRsC5WlH3I58CAm4ibHCmLd5GqtuGthW0tuC/FnK65KFl80fPboA3kiDCRqe+SgG7T2NT8p7AgMBAAECgYEAwhrGqyB7Vr0hGTbQWPJr/8UKDS4oSKWKOQy7GHuZI0VyjmfA+txWHghCGSsmQsX+5FNOlKTiBWFrfCjEFYn5p40MhlYew1Q9ib+s2eL+cYnFIS3cJ3StCs40GOBOzACEeNbeYezTMjVuMU/KX6N30BcqoebcT0EjrPgONHCa9YECQQD8fatxB844YzHmEgiMPIvfL56ZkcIqyApmLfFKFzs+XkrVTBducEADTwt1njIt2fV2vH5V5HgY3L/fDCQxNc3TAkEAyjYGokXMzQ424DWxNTixMd80+EY5W8cdP/k15zA2TD8yPZaXmOjVYusBZ0NL1in9kXEX1yoBKE+H7ZcBzAifuQJBAOvouzObuGlk/S1ashPdSk7Y3lXcI0/3ogfAa07vj9IBJehO9SGhzZ2J0Eov6fB/UmKDUYMNOcz5DGjpnjNAczMCQF2iVMIRhjsxqNF7q1oUrWCFlhadFfRcqDu2X3J1Tb9SyCXitMIWlrDeV2EEtXovKX6OmtaEWdLbuPqYoTlkiOkCQFHPPAjr0TGoSIFBzOg8hoUjql853Wltcy5eMjhWWvs4lX2PeWUiKHx7EzZLX1eM8Nc/D/3GelKPTMYDZiLKaic=");
+        //keyMap.put(0, "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCvXGi0H5uqtj0kcPOmfDinsChai/Wjyb0EegE+2phFJoY8YU+ayOc1bdQqBhgXQSOL13Sbk58lPwuANcvb1UfBL12/7TJHWOAxq3eOgdsotKBn4iN/cT9kd+MzmsKZgR6GuFyzNcz0RQixWxQG+B1WjiDZJZvhe54LrhfwjNIB9wIDAQAB");
+        //keyMap.put(1, "MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAK9caLQfm6q2PSRw86Z8OKewKFqL9aPJvQR6AT7amEUmhjxhT5rI5zVt1CoGGBdBI4vXdJuTnyU/C4A1y9vVR8EvXb/tMkdY4DGrd46B2yi0oGfiI39xP2R34zOawpmBHoa4XLM1zPRFCLFbFAb4HVaOINklm+F7nguuF/CM0gH3AgMBAAECgYB0y0ZNGXQzWdcVK0mMC9YsEU5/KBJ9eQK0NZIYy7x46fSjyGgdfktHsZOKPa7T5iWHoQNgDw0C4J+HT80r6Dw2GeRYn7B8rxvPa+7JhyPZmP8xn+AGdKDHjY+9HsZZSp7yGDX2GnHiQ9/bz62OjX0zSAjqVNE6kEavhI98gfvcEQJBAOqT6yOspqJV/ATe3YNe9f41z+r1Vgp2qXzq8U71CXxEAOGZoqVyYOrz9WmsqLeHfwrstUiYYqh1rCrrV+6RrK8CQQC/YBayj1sHIiTy54ILoddL0+I9NcjENi/ugseXk1u1oNMt6MHLg4nJm8biRR8LlcXXCU/bp9Lfa341TJPS4CE5AkEA1jyNziEKdsxsxM3+JNL/e1IOOBokoJ3LIUk5ZdEo/pLk8yVrhAq4NRzlj8Oeuy9GeeXBkzGJOS1vNiuGPV5SBQJBAK1hsc6eQFsrHQyQn+pH+xVw5oSMKNNTQIO3Knrx/2GDTjBGsuTdzETChCJVezX0wGP8xMP9vPe7nIFPWpHvi0kCQAEoFt8KAQk3mb9FpBA+FLch/wokA7qNdn8TWMkHGR8kXV9zIH4PdIUG4eingUdSvBCu9P9kEeFNVEum5WCZzLU=");
+
+        String endDateStr = "2020-09-08 12:00:00";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        long endTime = sdf.parse(endDateStr).getTime();
 
         //加密字符串
-        String message = "172.16.0.204,mac,server4,2020-09-30 12:00:00,jason";
+        String message = "172.16.3.136,3C:6A:A7:D5:64:C5,xingtu.scsc.tech," + endTime + ",4.15.0-115-generic";
         System.out.println("随机生成的公钥为:" + keyMap.get(0));
         System.out.println("随机生成的私钥为:" + keyMap.get(1));
         String messageEncrypt = encrypt(message, keyMap.get(1));
+//        String messageEncrypt = "dDgD5DBmdsdutUu/l+FSvM8dO0LRk6gWlrBc3K0ZZB0LHgSDovgcjhtK232nUg1RvwG9AaR7sOqok/8wVc6458EKjm0SM4WPF1yakcsb5rTCTM+EG5m2+tSKUkHH1swTLQtrI0uEwnBqo46KGK9PjTeGSl+wMGvYyL2eUtJpVZo=";
         System.out.println("加密后的字符串为:" + messageEncrypt);
         String messageDe = decrypt(messageEncrypt, keyMap.get(0));
         System.out.println("还原后的字符串为:" + messageDe);
+
+        System.out.println("license key is : " + messageEncrypt + "AASCSCXingTuBB" + keyMap.get(0));
+
+        System.out.println("========================");
+        String str = messageEncrypt + "AASCSCXingTuBB" + keyMap.get(0);
+        String[] split = str.split("AASCSCXingTuBB");
+        for (String s : split) {
+            System.out.println(s);
+        }
     }
 
     /**
