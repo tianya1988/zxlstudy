@@ -5,6 +5,7 @@ package rsa;
  */
 
 import org.apache.commons.codec.binary.Base64;
+import utils.MD5Util;
 
 import javax.crypto.Cipher;
 import java.security.*;
@@ -30,16 +31,19 @@ public class RSAEncrypt2 {
         //生成公钥和私钥
         genKeyPair();
 
+        String domainNameMD5 = MD5Util.getMD5("xingtu.scsc.tech");
+        System.out.println("domainNameMD5 is : " + domainNameMD5);
+
         //测试匹配的秘钥对的情况
         //keyMap.put(0, "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCvXGi0H5uqtj0kcPOmfDinsChai/Wjyb0EegE+2phFJoY8YU+ayOc1bdQqBhgXQSOL13Sbk58lPwuANcvb1UfBL12/7TJHWOAxq3eOgdsotKBn4iN/cT9kd+MzmsKZgR6GuFyzNcz0RQixWxQG+B1WjiDZJZvhe54LrhfwjNIB9wIDAQAB");
         //keyMap.put(1, "MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAK9caLQfm6q2PSRw86Z8OKewKFqL9aPJvQR6AT7amEUmhjxhT5rI5zVt1CoGGBdBI4vXdJuTnyU/C4A1y9vVR8EvXb/tMkdY4DGrd46B2yi0oGfiI39xP2R34zOawpmBHoa4XLM1zPRFCLFbFAb4HVaOINklm+F7nguuF/CM0gH3AgMBAAECgYB0y0ZNGXQzWdcVK0mMC9YsEU5/KBJ9eQK0NZIYy7x46fSjyGgdfktHsZOKPa7T5iWHoQNgDw0C4J+HT80r6Dw2GeRYn7B8rxvPa+7JhyPZmP8xn+AGdKDHjY+9HsZZSp7yGDX2GnHiQ9/bz62OjX0zSAjqVNE6kEavhI98gfvcEQJBAOqT6yOspqJV/ATe3YNe9f41z+r1Vgp2qXzq8U71CXxEAOGZoqVyYOrz9WmsqLeHfwrstUiYYqh1rCrrV+6RrK8CQQC/YBayj1sHIiTy54ILoddL0+I9NcjENi/ugseXk1u1oNMt6MHLg4nJm8biRR8LlcXXCU/bp9Lfa341TJPS4CE5AkEA1jyNziEKdsxsxM3+JNL/e1IOOBokoJ3LIUk5ZdEo/pLk8yVrhAq4NRzlj8Oeuy9GeeXBkzGJOS1vNiuGPV5SBQJBAK1hsc6eQFsrHQyQn+pH+xVw5oSMKNNTQIO3Knrx/2GDTjBGsuTdzETChCJVezX0wGP8xMP9vPe7nIFPWpHvi0kCQAEoFt8KAQk3mb9FpBA+FLch/wokA7qNdn8TWMkHGR8kXV9zIH4PdIUG4eingUdSvBCu9P9kEeFNVEum5WCZzLU=");
 
-        String endDateStr = "2020-09-08 12:00:00";
+        String endDateStr = "2020-09-10 11:20:00";
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         long endTime = sdf.parse(endDateStr).getTime();
 
         //加密字符串
-        String message = "172.16.3.136,3C:6A:A7:D5:64:C5,xingtu.scsc.tech," + endTime + ",4.15.0-115-generic";
+        String message = "172.16.3.136,3C:6A:A7:D5:64:C5,www.scsc.tech,xingtu.scsc.tech,"+ endTime + ",4.15.0-115-generic";
         System.out.println("随机生成的公钥为:" + keyMap.get(0));
         System.out.println("随机生成的私钥为:" + keyMap.get(1));
         String messageEncrypt = encrypt(message, keyMap.get(1));
@@ -50,12 +54,7 @@ public class RSAEncrypt2 {
 
         System.out.println("license key is : " + messageEncrypt + "AASCSCXingTuBB" + keyMap.get(0));
 
-        System.out.println("========================");
-        String str = messageEncrypt + "AASCSCXingTuBB" + keyMap.get(0);
-        String[] split = str.split("AASCSCXingTuBB");
-        for (String s : split) {
-            System.out.println(s);
-        }
+
     }
 
     /**
