@@ -17,22 +17,36 @@ import java.util.List;
 public class SuricataRuleUpdate {
     public static void main(String[] args) throws Exception {
 
-        FileInputStream fileInputStream = new FileInputStream(new File("/home/jason/Desktop/suricata/rule-update/origin/compromised.rules"));
+        String originRuleDir = "/home/jason/Desktop/suricata/rule-update/origin/";
+        String originRuleFileName = "compromised.rules";
+
+        String newRuleDir = "/home/jason/Desktop/suricata/rule-update/20200925/";
+        String newRuleFileName = "compromised.rules";
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String outputDir = "/home/jason/Desktop/suricata/rule-update/update/";
+        String outputFileName = "compromised-" + sdf.format(new Date()) + ".rules";
+
+        String selfDefAlarmType = "恶意IP";
+
+
+        FileInputStream fileInputStream = new FileInputStream(new File(originRuleDir + originRuleFileName));
 
         HashMap<Long, HashMap<String, String>> oldSignatures = new HashMap<Long, HashMap<String, String>>();
 
         //按行返回
         List<String> lines = IOUtils.readLines(fileInputStream);
         for (String line : lines) {
-            //System.out.println(line);
+            // System.out.println(line);
             if (line.startsWith("#") || line.isEmpty()) {
                 continue;
             }
             int i = line.indexOf("(msg:");
             String message = line.substring(i);
-//            System.out.println(message);
+            // System.out.println(message);
 
-            String messageReplaced = message.replace("(", "").replace(")", "").replace(" ", "").replace("alarm_type", "alarm_type ");
+            // replace 和replaceAll 都是全局替换，区别是是replaceAll支持正则
+            String messageReplaced = message.replaceAll(" +", " ").replace("(", "").replace(")", "").replace("; ", ";");
             System.out.println(messageReplaced);
 
 
@@ -46,13 +60,14 @@ public class SuricataRuleUpdate {
                     oldSignatures.put(Long.parseLong(sigArray[1]), ruleFieldMap);
                     continue;
                 }
-
+                // 有用信息msg字段
                 if (field.startsWith("msg:")) {
                     String[] msgArray = field.split(":");
                     ruleFieldMap.put("msg", msgArray[1]);
                     continue;
                 }
 
+                // // 有用信息metadata字段
                 if (field.startsWith("metadata:")) {
                     String[] metadataArray = field.split(":");
                     ruleFieldMap.put("metadata", metadataArray[1]);
@@ -66,11 +81,11 @@ public class SuricataRuleUpdate {
         IOUtils.closeQuietly(fileInputStream);
 
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        FileInputStream newInputStream = new FileInputStream(new File("/home/jason/Desktop/suricata/rule-update/20200925/compromised.rules"));
+        // 解析新的规则文件
+        FileInputStream newInputStream = new FileInputStream(new File(newRuleDir + newRuleFileName));
         List<String> newLines = IOUtils.readLines(newInputStream);
 
-        FileOutputStream outputStream = new FileOutputStream(new File("/home/jason/Desktop/suricata/rule-update/update/compromised" + sdf.format(new Date()) + ".rules"));
+        FileOutputStream outputStream = new FileOutputStream(new File(outputDir + outputFileName));
 
         int newRuleCount = 0;
         int oldRule = 0;
@@ -84,10 +99,11 @@ public class SuricataRuleUpdate {
             String newMessage = newline.substring(i);
             String ipInfo = newline.substring(0, i);
 
-            String newMessageReplaced = newMessage.replace("(", "").replace(")", "").replace("; ", ";");
-            System.out.println(newMessageReplaced);
+            // 替换掉(); 分号+空格的替换是为了后续切分的时候方便
+            String newMessageReplaced = newMessage.replaceAll(" +", " ").replace("(", "").replace(")", "").replace("; ", ";");
+            // System.out.println(newMessageReplaced);
 
-
+            // 获取新规则的sid，方便从就规则的map中get有用信息
             int sidIndex = newMessageReplaced.indexOf("sid:");
             String sidSubStr = newMessageReplaced.substring(sidIndex);
             String[] tempArray = sidSubStr.split(";");
@@ -95,8 +111,8 @@ public class SuricataRuleUpdate {
             long newSid = Long.parseLong(sidArray[1]);
 
 
+            // 存储旧规则的有用信息
             HashMap<String, String> originRuleFieldMap = null;
-
             if (oldSignatures.get(newSid) != null) {
                 originRuleFieldMap = oldSignatures.get(newSid);
                 oldRule++;
@@ -106,11 +122,13 @@ public class SuricataRuleUpdate {
                 System.out.println("newRule : " + newRule);
             }
 
+            // 新规则的字段信息
             String[] newFieldArray = newMessageReplaced.split(";");
 
             for (int index = 0; index < newFieldArray.length; index++) {
                 String field = newFieldArray[index];
 
+                // 如果旧规则的map有值，则获取就规则的有用信息
                 if (originRuleFieldMap != null) {
 
                     if (field.startsWith("msg:")) {
@@ -127,39 +145,47 @@ public class SuricataRuleUpdate {
                         continue;
                     }
                 } else {
-
+                    // 给新规则的msg字段做翻译
                     if (field.startsWith("msg:")) {
+                        Thread.sleep(5000);// 调用翻译接口的时候不能太快，否则会被封掉一段时间
                         String[] msgArray = field.split(":");
-                        Thread.sleep(5000);
                         String msgValue = msgArray[1].replace("\"", "");
-                        msgArray[1] = "\"" + GoogleTranslator.translate("en", "zh-CN", msgValue) + "\"";
+                        String translatedStr = GoogleTranslator.translate("en", "zh-CN", msgValue);
+                        if (translatedStr.startsWith("ET") && (translatedStr.contains("恶意主机") || translatedStr.contains("恶意的主机") || translatedStr.contains("敌对的主机流量"))) {
+                            translatedStr = "恶意IP";
+                        }
+                        msgArray[1] = "\"" + translatedStr + "\"";
                         newFieldArray[index] = msgArray[0] + ":" + msgArray[1];
                         continue;
                     }
 
+                    // 添加新规则的告警类型
                     if (field.startsWith("metadata:")) {
                         String[] metadataArray = field.split(":");
-                        metadataArray[1] = "alarm_type " + "恶意IP";
+                        metadataArray[1] = "alarm_type " + selfDefAlarmType;
                         newFieldArray[index] = metadataArray[0] + ":" + metadataArray[1];
                         continue;
                     }
                 }
             }
 
+            // 拼接新规则字符串
             String mainPart = "";
             for (String field : newFieldArray) {
                 mainPart = mainPart + field + ";";
             }
             mainPart = "(" + mainPart + ")";
-
             String updateRule = ipInfo + mainPart;
 
 
+            // 输出一条新规则
             IOUtils.write(updateRule, outputStream);
             IOUtils.write("\r\n", outputStream);
 
         }
 
         System.out.println("new rule count is : " + newRuleCount);
+        IOUtils.closeQuietly(newInputStream);
+        IOUtils.closeQuietly(outputStream);
     }
 }
