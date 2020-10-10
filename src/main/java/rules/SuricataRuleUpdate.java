@@ -6,9 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import translator.GoogleTranslator;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -19,7 +17,7 @@ public class SuricataRuleUpdate {
 
     private static final Logger logger = LoggerFactory.getLogger(SuricataRuleUpdate.class);
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
         long beginTime = System.currentTimeMillis();
 
@@ -27,30 +25,30 @@ public class SuricataRuleUpdate {
         fileAlarmTypeMap.put("ciarmy", "恶意IP");
         fileAlarmTypeMap.put("compromised", "恶意IP");
         fileAlarmTypeMap.put("dshield", "恶意IP");
-        fileAlarmTypeMap.put("emerging-attack_response", "命令执行");
+//        fileAlarmTypeMap.put("emerging-attack_response", "命令执行");
         fileAlarmTypeMap.put("emerging-scan", "恶意扫描");
-        fileAlarmTypeMap.put("emerging-activex", "ActiveX利用");
+//        fileAlarmTypeMap.put("emerging-activex", "ActiveX利用");
         fileAlarmTypeMap.put("emerging-coinminer", "挖矿");
-        fileAlarmTypeMap.put("emerging-dns", "DNS攻击");
-        fileAlarmTypeMap.put("emerging-dos", "DDoS");
-        fileAlarmTypeMap.put("emerging-exploit", "漏洞利用");
-        fileAlarmTypeMap.put("emerging-exploit_kit", "漏洞利用");
-        fileAlarmTypeMap.put("emerging-ftp", "漏洞利用");
-        fileAlarmTypeMap.put("emerging-icmp_info", "ICMP事件");
-        fileAlarmTypeMap.put("emerging-imap", "漏洞利用");
+//        fileAlarmTypeMap.put("emerging-dns", "DNS攻击");
+//        fileAlarmTypeMap.put("emerging-dos", "DDoS");
+//        fileAlarmTypeMap.put("emerging-exploit", "漏洞利用");
+//        fileAlarmTypeMap.put("emerging-exploit_kit", "漏洞利用");
+//        fileAlarmTypeMap.put("emerging-ftp", "漏洞利用");
+//        fileAlarmTypeMap.put("emerging-icmp_info", "ICMP事件");
+//        fileAlarmTypeMap.put("emerging-imap", "漏洞利用");
         fileAlarmTypeMap.put("emerging-ja3", "恶意TLS");
-        fileAlarmTypeMap.put("emerging-malware", "恶意软件");
-        fileAlarmTypeMap.put("emerging-netbios", "漏洞利用");
-        fileAlarmTypeMap.put("emerging-rpc", "漏洞利用");
-        fileAlarmTypeMap.put("emerging-shellcode", "Webshell");
-        fileAlarmTypeMap.put("emerging-snmp", "漏洞利用");
-        fileAlarmTypeMap.put("emerging-sql", "数据库访问异常");// 非单一
-        fileAlarmTypeMap.put("emerging-telnet", "Telnet访问异常");// 非单一
-        fileAlarmTypeMap.put("emerging-tftp", "漏洞利用");
-        fileAlarmTypeMap.put("emerging-user_agents", "木马病毒");
-        fileAlarmTypeMap.put("emerging-web_client", "漏洞利用");
-        fileAlarmTypeMap.put("emerging-web_server", "漏洞利用");
-        fileAlarmTypeMap.put("emerging-worm", "木马病毒");
+//        fileAlarmTypeMap.put("emerging-malware", "恶意软件");
+//        fileAlarmTypeMap.put("emerging-netbios", "漏洞利用");
+//        fileAlarmTypeMap.put("emerging-rpc", "漏洞利用");
+//        fileAlarmTypeMap.put("emerging-shellcode", "Webshell");
+//        fileAlarmTypeMap.put("emerging-snmp", "漏洞利用");
+//        fileAlarmTypeMap.put("emerging-sql", "数据库访问异常");// 非单一
+//        fileAlarmTypeMap.put("emerging-telnet", "Telnet访问异常");// 非单一
+//        fileAlarmTypeMap.put("emerging-tftp", "漏洞利用");
+//        fileAlarmTypeMap.put("emerging-user_agents", "木马病毒");
+//        fileAlarmTypeMap.put("emerging-web_client", "漏洞利用");
+//        fileAlarmTypeMap.put("emerging-web_server", "漏洞利用");
+//        fileAlarmTypeMap.put("emerging-worm", "木马病毒");
 
 
         // 统计更新后所有的有效规则一共有多少条
@@ -67,28 +65,39 @@ public class SuricataRuleUpdate {
 
             logger.info("========= " + fileAlarmTypeEntry.getKey() + " ========= begin !");
 
-            String originRuleDir = "/home/jason/Desktop/suricata/rule-update/origin/";
+            String originRuleDir = "/home/jason/Desktop/suricata/rule-update/update/20200925/";
             String originRuleFileName = fileAlarmTypeEntry.getKey() + ".rules";
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
             String todayStr = sdf.format(new Date());
 //            String newRuleDir = "/home/jason/Desktop/suricata/rule-update/" + todayStr + "/";
-            String newRuleDir = "/home/jason/Desktop/suricata/rule-update/20200925/";
+            String newRuleDir = "/home/jason/Desktop/suricata/rule-update/20201010/";
             String newRuleFileName = fileAlarmTypeEntry.getKey() + ".rules";
 
 //            String outputDir = "/home/jason/Desktop/suricata/rule-update/update/" + todayStr + "/";
-            String outputDir = "/home/jason/Desktop/suricata/rule-update/update/20200925/";
+            String outputDir = "/home/jason/Desktop/suricata/rule-update/update/20201010/";
             String outputFileName = fileAlarmTypeEntry.getKey() + ".rules";
 
             String selfDefAlarmType = fileAlarmTypeEntry.getValue();
 
 
-            FileInputStream fileInputStream = new FileInputStream(new File(originRuleDir + originRuleFileName));
+            FileInputStream fileInputStream = null;
+            try {
+                fileInputStream = new FileInputStream(new File(originRuleDir + originRuleFileName));
+            } catch (FileNotFoundException e) {
+                logger.error(e.getMessage());
+                continue;
+            }
 
             HashMap<Long, HashMap<String, String>> oldSignatures = new HashMap<Long, HashMap<String, String>>();
 
             //按行返回
-            List<String> lines = IOUtils.readLines(fileInputStream);
+            List<String> lines = null;
+            try {
+                lines = IOUtils.readLines(fileInputStream);
+            } catch (IOException e) {
+                logger.error(e.getMessage());
+            }
             for (String line : lines) {
                 // System.out.println(line);
                 if (line.startsWith("#") || line.isEmpty()) {
@@ -135,10 +144,26 @@ public class SuricataRuleUpdate {
 
 
             // 解析新的规则文件
-            FileInputStream newInputStream = new FileInputStream(new File(newRuleDir + newRuleFileName));
-            List<String> newLines = IOUtils.readLines(newInputStream);
+            FileInputStream newInputStream = null;
+            List<String> newLines = null;
+            try {
+                newInputStream = new FileInputStream(new File(newRuleDir + newRuleFileName));
+                newLines = IOUtils.readLines(newInputStream);
+            } catch (FileNotFoundException e) {
+                logger.error(e.getMessage());
+                continue;
+            } catch (IOException e) {
+                logger.error(e.getMessage());
+                continue;
+            }
 
-            FileOutputStream outputStream = new FileOutputStream(new File(outputDir + outputFileName));
+
+            FileOutputStream outputStream = null;
+            try {
+                outputStream = new FileOutputStream(new File(outputDir + outputFileName));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
 
             int ruleCount = 0;
             int oldRule = 0;
@@ -168,15 +193,6 @@ public class SuricataRuleUpdate {
                 String[] tempArray = sidSubStr.split(";");
                 String[] sidArray = tempArray[0].split(":");
                 long newSid = Long.parseLong(sidArray[1]);
-
-/*
-            // 获取新规则的sid，方便从就规则的map中get有用信息
-            int sidIndex = newMessageReplaced.indexOf("sid:");
-            String sidSubStr = newMessageReplaced.substring(sidIndex);
-            String[] tempArray = sidSubStr.split(";");
-            String[] sidArray = tempArray[0].split(":");
-            long newSid = Long.parseLong(sidArray[1]);
-*/
 
                 // 存储旧规则的有用信息
                 HashMap<String, String> originRuleFieldMap = null;
@@ -215,10 +231,19 @@ public class SuricataRuleUpdate {
                         // 给新规则的msg字段做翻译
                         if (field.startsWith("msg:")) {
                             int randomNumber = new Random().nextInt(5) + 10;
-                            Thread.sleep(randomNumber * 1000);// 调用翻译接口的时候不能太快，否则会被封掉一段时间
+                            try {
+                                Thread.sleep(randomNumber * 1000);// 调用翻译接口的时候不能太快，否则会被封掉一段时间
+                            } catch (InterruptedException e) {
+                                logger.error(e.getMessage());
+                            }
                             String[] msgArray = field.split(":");
                             String msgValue = msgArray[1].replace("\"", "");
-                            String translatedStr = GoogleTranslator.translate("en", "zh-CN", msgValue);
+                            String translatedStr = null;
+                            try {
+                                translatedStr = GoogleTranslator.translate("en", "zh-CN", msgValue);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                             if (translatedStr.startsWith("ET") && (translatedStr.contains("恶意主机") || translatedStr.contains("恶意的主机") || translatedStr.contains("敌对的主机流量"))) {
                                 translatedStr = "恶意IP";
                             }
@@ -246,8 +271,12 @@ public class SuricataRuleUpdate {
                 String updateRule = ipInfo + mainPart;
 
                 // 输出一条新规则
-                IOUtils.write(updateRule, outputStream);
-                IOUtils.write("\r\n", outputStream);
+                try {
+                    IOUtils.write(updateRule, outputStream);
+                    IOUtils.write("\r\n", outputStream);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
             }
 
@@ -264,7 +293,7 @@ public class SuricataRuleUpdate {
         }
 
         long endTime = System.currentTimeMillis();
-        logger.info("Total use time is : " + (beginTime - endTime) / 1000 + " s");
+        logger.info("Total use time is : " + (endTime - beginTime) / 1000 + " s");
         logger.info("Total rule count is : " + totalRuleCount);
         logger.info("Total old rule count is : " + totalOldRule);
         logger.info("Total new rule count is : " + totalNewRule);
