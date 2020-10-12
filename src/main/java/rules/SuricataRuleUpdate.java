@@ -108,7 +108,7 @@ public class SuricataRuleUpdate {
                 // System.out.println(message);
 
                 // replace 和replaceAll 都是全局替换，区别是是replaceAll支持正则
-                String messageReplaced = message.replaceAll(" +", " ").replace("(", "").replace(")", "").replace("; ", ";");
+                String messageReplaced = message.replaceAll(" +", " ").replace("; ", ";");
 //                System.out.println(messageReplaced);
 
 
@@ -123,7 +123,7 @@ public class SuricataRuleUpdate {
                         continue;
                     }
                     // 有用信息msg字段
-                    if (field.startsWith("msg:")) {
+                    if (field.startsWith("(msg:")) {
                         String[] msgArray = field.split(":");
                         ruleFieldMap.put("msg", msgArray[1]);
                         continue;
@@ -184,7 +184,7 @@ public class SuricataRuleUpdate {
                 String ipInfo = newline.substring(0, i);
 
                 // 替换掉(); 分号+空格的替换是为了后续切分的时候方便
-                String newMessageReplaced = newMessage.replaceAll(" +", " ").replace("(", "").replace(")", "").replace("; ", ";");
+                String newMessageReplaced = newMessage.replaceAll(" +", " ").replace("; ", ";");
                 // System.out.println(newMessageReplaced);
 
                 // 获取新规则的sid，方便从就规则的map中get有用信息
@@ -214,7 +214,7 @@ public class SuricataRuleUpdate {
                     // 如果旧规则的map有值，则获取就规则的有用信息
                     if (originRuleFieldMap != null) {
 
-                        if (field.startsWith("msg:")) {
+                        if (field.startsWith("(msg:")) {
                             String[] msgArray = field.split(":");
                             msgArray[1] = originRuleFieldMap.get("msg");
                             newFieldArray[index] = msgArray[0] + ":" + msgArray[1];
@@ -229,7 +229,7 @@ public class SuricataRuleUpdate {
                         }
                     } else {
                         // 给新规则的msg字段做翻译
-                        if (field.startsWith("msg:")) {
+                        if (field.startsWith("(msg:")) {
                             int randomNumber = new Random().nextInt(5) + 10;
                             try {
                                 Thread.sleep(randomNumber * 1000);// 调用翻译接口的时候不能太快，否则会被封掉一段时间
@@ -267,7 +267,7 @@ public class SuricataRuleUpdate {
                 for (String field : newFieldArray) {
                     mainPart = mainPart + field + ";";
                 }
-                mainPart = "(" + mainPart + ")";
+                mainPart = mainPart.substring(0, mainPart.length() - 1);
                 String updateRule = ipInfo + mainPart;
 
                 // 输出一条新规则
