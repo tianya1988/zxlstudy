@@ -25,10 +25,11 @@ public class SuricataWeakPassword {
         // alert http any any -> any any (msg:"可能存在弱口令风险";  content:"password"; content:"UGFzc2MwZGUh"; nocase; flowbits:set,userlogin; sid:93999996; rev:2; metadata:alarm_type 弱口令尝试, created_at 2020_10_15, updated_at 2020_10_15;)
         // alert http any any -> any any (msg:"弱口令登录成功";  content:"200"; http_stat_code; flowbits:isset,userlogin; priority:3; sid:93999995; rev:2; metadata:alarm_type 弱口令, created_at 2020_10_15, updated_at 2020_10_15;)
 
-        int sid = 94000001;
+        int sid = 97500001;
         String rulePart1 = "alert http any any -> any any (msg:\"可能存在弱口令风险\";content:\"login\"; http_uri; nocase; content:\"password\"; content:\"";
-        String rulePart2 = "\"; nocase; flowbits:set,userlogin; sid:";
-        String rulePart3 = "; rev:2; metadata:alarm_type 弱口令尝试, created_at 2020_10_15, updated_at 2020_10_15;)";
+//        String rulePart2 = "\"; nocase; flowbits:set,userlogin; sid:";
+        String rulePart2 = "\"; nocase; sid:"; //因为无法判断登录是否成功，导致第二条规则无法编写，所有此处暂时不用flowbits关键字
+        String rulePart3 = "; rev:1; metadata:alarm_type 弱口令尝试, created_at 2020_10_22, updated_at 2020_10_22;)";
         for (String weakPassword : lines) {
             if (weakPassword.contains(";")) {
                 continue;
