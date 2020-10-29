@@ -11,7 +11,9 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSession;
 
-
+/**
+ * TODO 加证书，未测试成功
+ */
 
 public class TLS_Https {
 
