@@ -29,16 +29,16 @@ public class KafkaConsumerDemo {
         props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         props.put("offsets.storage", "kafka");// org.apache.kafka.clients.consumer在此包中,只能往kafka存储,即使配置成zookeeper,也是只保存offset到kafka.
         KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(props);
-        consumer.subscribe(Arrays.asList("pro-http"));
+        consumer.subscribe(Arrays.asList("pro-origin"));
         while (true) {
             ConsumerRecords<String, String> records = consumer.poll(100);// 批量拉去一次
-            System.out.println("poll total count is : " + records.count());// 6379
+            System.out.println("poll total count is : " + records.count());// jason 自测输出的是6379
             for (ConsumerRecord<String, String> record : records) {
                 System.out.printf("topic = %s, partition=%d, offset = %d, timestamp = %d, key = %s, value = %s%n", record.topic(), record.partition(), record.offset(), record.timestamp(), record.key(), record.value());
                 System.out.println();
                 System.out.println("=======================");
                 System.out.println();
-                Thread.sleep(3000);
+//                Thread.sleep(3000);
             }
             consumer.commitAsync(); // 只有提交了,下次才能不继续消费
             System.out.println("=================commit!");
