@@ -1,3 +1,4 @@
+/*
 package es.client
 
 import java.net.InetAddress
@@ -74,3 +75,4 @@ class ElasticsearchTemplateTest {
   }
 
 }
+*/

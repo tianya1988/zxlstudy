@@ -1,3 +1,4 @@
+/*
 package es.transportclient;
 
 import com.alibaba.fastjson.JSONObject;
@@ -19,9 +20,11 @@ import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+*/
 /**
  * Created by jason on 18-3-11.
- */
+ *//*
+
 public class ElasticsearchDemo {
     public static void main(String[] args) throws Exception {
         //add();
@@ -138,3 +141,4 @@ public class ElasticsearchDemo {
         client.close();
     }
 }
+*/
