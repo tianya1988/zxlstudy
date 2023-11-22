@@ -1,3 +1,4 @@
+/*
 package linuxshelltelnet;
 
 
@@ -12,9 +13,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+*/
 /**
  * Created by jason on 20-3-13.
- */
+ *//*
+
 public class SSH2 {
     public static void main(String[] args) throws IOException, JSchException, InterruptedException {
         String host = "172.16.254.1";
@@ -62,3 +65,4 @@ public class SSH2 {
         session.disconnect();
     }
 }
+*/

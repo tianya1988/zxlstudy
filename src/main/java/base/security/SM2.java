@@ -1,3 +1,4 @@
+/*
 package base.security;
 
 import java.math.BigInteger;
@@ -23,14 +24,16 @@ public class SM2 {
 	};
 	
 	// 正式参数
-	/*public static String[] ecc_param = { 
+	*/
+/*public static String[] ecc_param = {
 		"FFFFFFFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000FFFFFFFFFFFFFFFF",
 		"FFFFFFFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000FFFFFFFFFFFFFFFC",
 		"28E9FA9E9D9F5E344D5A9E4BCF6509A7F39789F515AB8F92DDBCBD414D940E93",
 		"FFFFFFFEFFFFFFFFFFFFFFFFFFFFFFFF7203DF6B21C6052B53BBF40939D54123",
 		"32C4AE2C1F1981195F9904466A39C9948FE30BBFF2660BE1715A4589334C74C7",
 		"BC3736A2F4F6779C59BDCEE36B692153D0A9877CC62A474002DF32E52139F0A0"
-	};*/
+	};*//*
+
 
 	public static SM2 Instance(){
 		return new SM2();
@@ -112,11 +115,13 @@ public class SM2 {
 		do {
 			do {
 				// 正是环境
-				/*AsymmetricCipherKeyPair keypair = ecc_key_pair_generator.generateKeyPair();
+				*/
+/*AsymmetricCipherKeyPair keypair = ecc_key_pair_generator.generateKeyPair();
 				ECPrivateKeyParameters ecpriv = (ECPrivateKeyParameters) keypair.getPrivate();
 				ECPublicKeyParameters ecpub = (ECPublicKeyParameters) keypair.getPublic();
 				k = ecpriv.getD();
-				kp = ecpub.getQ();*/
+				kp = ecpub.getQ();*//*
+
 				
 				// 国密规范测试 随机数k
 				String kS = "6CB28D99385C175C94F94E934817663FC176D925DD72B727260DBAAE1FB2F96F";
@@ -168,3 +173,4 @@ public class SM2 {
         }
     }
 }
+*/

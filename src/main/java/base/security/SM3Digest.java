@@ -1,25 +1,38 @@
+/*
 package base.security;
 
 import org.bouncycastle.util.encoders.Hex;
 
 
 public class SM3Digest{
-	/** SM3值的长度 */
+	*/
+/** SM3值的长度 *//*
+
     private static final int BYTE_LENGTH = 32;
 
-    /** SM3分组长度 */
+    */
+/** SM3分组长度 *//*
+
     private static final int BLOCK_LENGTH = 64;
 
-    /** 缓冲区长度 */
+    */
+/** 缓冲区长度 *//*
+
     private static final int BUFFER_LENGTH = BLOCK_LENGTH * 1;
 
-    /** 缓冲区 */
+    */
+/** 缓冲区 *//*
+
     private byte[] xBuf = new byte[BUFFER_LENGTH];
 
-    /** 缓冲区偏移量 */
+    */
+/** 缓冲区偏移量 *//*
+
     private int xBufOff;
 
-    /** 初始向量 */
+    */
+/** 初始向量 *//*
+
     private byte[] V = SM3.iv.clone();
 
     private int cntBlock = 0;
@@ -33,13 +46,15 @@ public class SM3Digest{
         System.arraycopy(t.V, 0, this.V, 0, t.V.length);
     }
 
-    /**
+    */
+/**
      * SM3结果输出
      *
      * @param out 保存SM3结构的缓冲区
      * @param outOff 缓冲区偏移量
      * @return
-     */
+     *//*
+
     public int doFinal(byte[] out, int outOff){
         byte[] tmp = doFinal();
         System.arraycopy(tmp, 0, out, 0, tmp.length);
@@ -52,7 +67,8 @@ public class SM3Digest{
         V = SM3.iv.clone();
     }
 
-    /**
+    */
+/**
      * 明文输入
      *
      * @param in
@@ -61,7 +77,8 @@ public class SM3Digest{
      *            缓冲区偏移量
      * @param len
      *            明文长度
-     */
+     *//*
+
     public void update(byte[] in, int inOff, int len){
         int partLen = BUFFER_LENGTH - xBufOff;
         int inputLen = len;
@@ -122,3 +139,4 @@ public class SM3Digest{
 	
 	
 }
+*/

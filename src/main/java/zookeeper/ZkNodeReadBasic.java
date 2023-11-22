@@ -1,3 +1,4 @@
+/*
 package zookeeper;
 
 import kafka.OffsetUtil;
@@ -7,9 +8,11 @@ import utils.StringZkSerializer;
 
 import java.util.HashMap;
 
+*/
 /**
  * Created by jason on 17-8-8.
- */
+ *//*
+
 public class ZkNodeReadBasic {
 
     public static void main(String[] args) {
@@ -26,3 +29,4 @@ public class ZkNodeReadBasic {
         }
     }
 }
+*/

@@ -1,3 +1,4 @@
+/*
 package zookeeper;
 
 import com.alibaba.fastjson.JSON;
@@ -24,9 +25,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+*/
 /**
  * Created by jason on 17-8-8.
- */
+ *//*
+
 public class ZkNodeWrite {
 
     public static void main(String[] args) throws IOException {
@@ -42,9 +45,11 @@ public class ZkNodeWrite {
         File[] files = dir.listFiles();
 
         for (File file : files) {
-            /*if (file.isDirectory() || !(file.getName().endsWith("properties")) || (file.getName().startsWith("sparkSubmit"))) {
+            */
+/*if (file.isDirectory() || !(file.getName().endsWith("properties")) || (file.getName().startsWith("sparkSubmit"))) {
                 continue;
-            }*/
+            }*//*
+
             if (file.isDirectory() || !(file.getName().endsWith("json")) || (file.getName().startsWith("sparkSubmit"))) {
                 continue;
             }
@@ -88,3 +93,4 @@ public class ZkNodeWrite {
         return acls;
     }
 }
+*/

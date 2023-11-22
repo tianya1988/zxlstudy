@@ -26,28 +26,28 @@
         <spark.streaming.kafka.version>2.1.0</spark.streaming.kafka.version>
     </properties>
 
-        <!--<repositories>
-            <repository>
-                <id>Central</id>
-                <url>https://repo1.maven.org/maven2/</url>
-                <releases>
-                    <enabled>true</enabled>
-                </releases>
-                <snapshots>
-                    <enabled>true</enabled>
-                </snapshots>
-            </repository>
-            <repository>
-                <id>Sonatype</id>
-                <url>https://oss.sonatype.org/content/repositories/releases/</url>
-                <releases>
-                    <enabled>true</enabled>
-                </releases>
-                <snapshots>
-                    <enabled>true</enabled>
-                </snapshots>
-            </repository>
-        </repositories>-->
+    <!--<repositories>
+        <repository>
+            <id>Central</id>
+            <url>https://repo1.maven.org/maven2/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>Sonatype</id>
+            <url>https://oss.sonatype.org/content/repositories/releases/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>-->
 
     <dependencies>
 
@@ -55,15 +55,11 @@
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
             <version>1.12</version>
-            <scope>system</scope>
-            <systemPath>/home/jason/.m2/repository/local/commons-codec-1.12.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.jcraft</groupId>
             <artifactId>jsch</artifactId>
             <version>0.1.55</version>
-            <scope>system</scope>
-            <systemPath>/home/jason/.m2/repository/local/jsch-0.1.55.jar</systemPath>
         </dependency>
 
         <dependency>
@@ -197,7 +193,17 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.8.10</version>
+            <version>2.9.8</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.9.8</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.9.8</version>
         </dependency>
 
         <!-- geo ending -->
@@ -207,6 +213,17 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpcore</artifactId>
             <version>4.4.9</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpmime</artifactId>
+            <version>4.5.2</version>
         </dependency>
         <!-- http ending -->
 
@@ -236,6 +253,12 @@
             <version>1.59</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>3.13.1</version>
+        </dependency>
+
 
         <!--Freemarker wls-->
         <dependency>
@@ -249,8 +272,6 @@
             <groupId>com.itextpdf</groupId>
             <artifactId>itextpdf</artifactId>
             <version>5.5.13</version>
-            <scope>system</scope>
-            <systemPath>/home/jason/.m2/repository/local/itextpdf-5.5.13.jar</systemPath>
         </dependency>
         <!--
         <dependency>
@@ -265,8 +286,6 @@
             <groupId>com.itextpdf</groupId>
             <artifactId>itext-asian</artifactId>
             <version>5.2.0</version>
-            <scope>system</scope>
-            <systemPath>/home/jason/.m2/repository/local/itext-asian-5.2.0.jar</systemPath>
         </dependency>
         <!--
         <dependency>
@@ -288,8 +307,6 @@
             <groupId>com.itextpdf.tool</groupId>
             <artifactId>xmlworker</artifactId>
             <version>5.5.13</version>
-            <scope>system</scope>
-            <systemPath>/home/jason/.m2/repository/local/xmlworker-5.5.13.jar</systemPath>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.xhtmlrenderer/flying-saucer-pdf -->
@@ -304,21 +321,18 @@
             <groupId>org.xhtmlrenderer</groupId>
             <artifactId>flying-saucer-pdf</artifactId>
             <version>9.1.16</version>
-            <scope>system</scope>
-            <systemPath>/home/jason/.m2/repository/local/flying-saucer-pdf-9.1.16.jar</systemPath>
         </dependency>
-        <dependency>
+
+        <!--<dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcpkix-jdk15on</artifactId>
             <version>1.56</version>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcpkix-jdk15on</artifactId>
             <version>1.59</version>
-            <scope>system</scope>
-            <systemPath>/home/jason/.m2/repository/local/bcpkix-jdk15on-1.59.jar</systemPath>
         </dependency>
 
 
@@ -326,8 +340,6 @@
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcprov-jdk15on</artifactId>
             <version>1.46</version>
-            <scope>system</scope>
-            <systemPath>/home/jason/.m2/repository/local/bcprov-jdk15on-1.46.jar</systemPath>
         </dependency>
 
         <!-- Ganymed for SCP SFTP -->
@@ -358,7 +370,24 @@
         </dependency>
 
 
+        <!-- 视频裁剪 -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>30.1.1-jre</version>
+        </dependency>
 
+        <dependency>
+            <groupId>org.bytedeco</groupId>
+            <artifactId>javacv-platform</artifactId>
+            <version>1.5.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.5.2</version>
+        </dependency>
 
 
 

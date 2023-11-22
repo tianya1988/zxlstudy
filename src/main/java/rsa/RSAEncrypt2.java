@@ -1,8 +1,11 @@
+/*
 package rsa;
 
+*/
 /**
  * Created by jason on 20-9-7.
- */
+ *//*
+
 
 import org.apache.commons.codec.binary.Base64;
 import utils.MD5Util;
@@ -21,12 +24,14 @@ public class RSAEncrypt2 {
     // 0-公钥 1-私钥
     private static Map<Integer, String> keyMap = new HashMap<Integer, String>();  //用于封装随机产生的公钥与私钥
 
-    /**
+    */
+/**
      * 私钥加密 公钥解密
      *
      * @param args
      * @throws Exception
-     */
+     *//*
+
     public static void main(String[] args) throws Exception {
         //生成公钥和私钥
         genKeyPair();
@@ -62,11 +67,13 @@ public class RSAEncrypt2 {
 
     }
 
-    /**
+    */
+/**
      * 随机生成密钥对
      *
      * @throws java.security.NoSuchAlgorithmException
-     */
+     *//*
+
     public static void genKeyPair() throws NoSuchAlgorithmException {
         // KeyPairGenerator类用于生成公钥和私钥对，基于RSA算法生成对象
         KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance("RSA");
@@ -87,14 +94,16 @@ public class RSAEncrypt2 {
         keyMap.put(1, privateKeyString);  //1表示私钥
     }
 
-    /**
+    */
+/**
      * RSA公钥加密
      *
      * @param str        加密字符串
      * @param privateKey 公钥
      * @return 密文
      * @throws Exception 加密过程中的异常信息
-     */
+     *//*
+
     public static String encrypt(String str, String privateKey) {
         try {
             //base64编码的公钥
@@ -111,14 +120,16 @@ public class RSAEncrypt2 {
         return null;
     }
 
-    /**
+    */
+/**
      * RSA私钥解密
      *
      * @param str       加密字符串
      * @param publicKey 私钥
      * @return 铭文
      * @throws Exception 解密过程中的异常信息
-     */
+     *//*
+
     public static String decrypt(String str, String publicKey) {
         try {
             //64位解码加密后的字符串
@@ -140,3 +151,4 @@ public class RSAEncrypt2 {
 
 }
 
+*/

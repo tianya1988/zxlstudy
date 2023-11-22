@@ -1,3 +1,4 @@
+/*
 package zookeeper;
 
 import kafka.OffsetUtil;
@@ -8,9 +9,11 @@ import utils.StringZkSerializer;
 
 import java.util.HashMap;
 
+*/
 /**
  * Created by jason on 17-8-8.
- */
+ *//*
+
 public class ZkNodeRead {
 
     public static void main(String[] args) {
@@ -21,10 +24,13 @@ public class ZkNodeRead {
         String zkServers = "11.11.127.1:2181";
         String zkPath = "/spark/offset/XjHttpToHdfs/" + "xj-pro-http-to-hdfs-spark-agent";
 
-        /*//生产
+        */
+/*//*
+/生产
         String kafkaBrokers = "11.11.60.2:6667";
         String zkServers = "11.11.127.2:2181";
-        String zkPath = "/spark/offset/DnsToEs/" + area + "-pro-dns-spark-agent";*/
+        String zkPath = "/spark/offset/DnsToEs/" + area + "-pro-dns-spark-agent";*//*
+
 
         HashMap<Integer, Object> earliestOffsetInfoFromKafka = OffsetUtil.getOffsetInfo(kafkaBrokers, "avro-xj-pro-http", -2);
         HashMap<Integer, Object> latestOffsetInfoFromKafka = OffsetUtil.getOffsetInfo(kafkaBrokers, "avro-xj-pro-http", -1);
@@ -34,7 +40,8 @@ public class ZkNodeRead {
 
         if (zkClient.exists(zkPath)) {
             final String data = zkClient.readData(zkPath);
-            /**
+            */
+/**
              * data demo is below
              avro-dzm-pro-dns,27,9196974,9197108
              avro-dzm-pro-dns,31,12871066,12871222
@@ -74,7 +81,8 @@ public class ZkNodeRead {
              avro-dzm-pro-dns,26,9229125,9229262
              *
              *
-             */
+             *//*
+
 
             System.out.println("===============zookeeper data begin================");
             System.out.println(data);
@@ -116,3 +124,4 @@ public class ZkNodeRead {
         }
     }
 }
+*/
